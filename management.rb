@@ -10,6 +10,3 @@ require 'onlyoffice_logger_helper'
 require 'ooxml_parser'
 require 'palladium'
 require 'onlyoffice_tcm_helper'
-
-class Management
-end
