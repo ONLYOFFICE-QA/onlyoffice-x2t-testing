@@ -149,16 +149,12 @@ class FileHelper
       files
     end
 
-    def list_file_in_directory(directory, extension = nil)
+    def list_file_in_directory(directory)
       paths = []
       Find.find(directory) do |path|
         next if FileTest.directory?(path)
 
-        if extension.nil?
-          paths << path
-        elsif File.extname(path) == ".#{extension}"
-          paths << path
-        end
+        paths << path
       end
       paths
     rescue Errno::ENOENT
