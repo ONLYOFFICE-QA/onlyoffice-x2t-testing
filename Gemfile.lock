@@ -43,7 +43,7 @@ GEM
     onlyoffice_s3_wrapper (0.4.0)
       aws-sdk-s3 (~> 1)
       onlyoffice_file_helper (~> 0)
-    ooxml_parser (0.10.0)
+    ooxml_parser (0.11.0)
       nokogiri (~> 1)
       ruby-filemagic (~> 0)
       rubyzip (~> 2)
