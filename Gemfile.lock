@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: https://github.com/onlyoffice-testing-robot/onlyoffice_tcm_helper
-  revision: 24d8daebd8102bc443ef31dd3a42a471e2e21c43
+  revision: 3a20bcd8915909eb78cae246603d1852ce8361ba
   specs:
     onlyoffice_tcm_helper (0.1.1)
       onlyoffice_file_helper (~> 0.1)
