@@ -10,6 +10,7 @@ describe 'Conversion pptx files to odp' do
   end
   (files - result_sets.map { |result_set| "pptx/#{result_set}" }).each do |file|
     it File.basename(file) do
+      skip('https://bugzilla.onlyoffice.com/show_bug.cgi?id=47381') if file == 'pptx/a4-caleigh.pptx'
       s3.download_file_by_name(file, @tmp_dir)
       @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :odp)
       expect(File.exist?(@file_data[:tmp_filename])).to be_truthy
