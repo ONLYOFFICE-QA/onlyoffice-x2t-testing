@@ -72,7 +72,7 @@ GEM
       parser (>= 3.0.1.1)
     ruby-filemagic (0.7.2)
     ruby-progressbar (1.11.0)
-    rubyzip (2.3.1)
+    rubyzip (2.3.2)
     unicode-display_width (2.0.0)
 
 PLATFORMS
