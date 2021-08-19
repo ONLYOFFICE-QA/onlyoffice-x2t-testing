@@ -70,8 +70,8 @@ RSpec/MultipleExpectations:
 # Cop supports --auto-correct.
 # Configuration parameters: Strict, EnforcedStyle, AllowedExplicitMatchers.
 # SupportedStyles: inflected, explicit
-RSpec/PredicateMatcher:
-  Enabled: false
+#RSpec/PredicateMatcher:
+#  Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.

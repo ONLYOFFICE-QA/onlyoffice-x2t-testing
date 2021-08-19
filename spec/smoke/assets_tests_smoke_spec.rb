@@ -12,14 +12,14 @@ describe 'Assets tests' do
   describe 'libraries' do
     StaticData::LIBS_ARRAY.each do |lib|
       it "Lib #{lib} exist check" do
-        expect(File.exist?("bin/#{lib}")).to be_truthy
+        expect(File).to exist("bin/#{lib}")
       end
     end
   end
 
   describe 'x2t' do
     it 'x2t exist check' do
-      expect(File.exist?('bin/x2t')).to be_truthy
+      expect(File).to exist('bin/x2t')
     end
 
     it 'x2t version non empty check' do

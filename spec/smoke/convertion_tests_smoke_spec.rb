@@ -13,7 +13,7 @@ describe 'Conversion tests' do
       it "Check converting from #{format_from} to #{format}" do
         filepath = "#{StaticData::NEW_FILES_DIR}/new.#{format_from}"
         file_data = x2t.convert(filepath, format)
-        expect(File.exist?(file_data[:tmp_filename])).to be_truthy
+        expect(File).to exist(file_data[:tmp_filename])
       end
     end
   end
@@ -26,13 +26,13 @@ describe 'Conversion tests' do
   it 'Check converting from docx to xlsx negative' do
     filepath = "#{StaticData::NEW_FILES_DIR}/new.docx"
     file_data = x2t.convert(filepath, :xlsx)
-    expect(File.exist?(file_data[:tmp_filename])).to be_falsey
+    expect(File).not_to exist(file_data[:tmp_filename])
   end
 
   it 'Check conversion errors' do
     filepath = "#{StaticData::BROKEN_FILES_DIR}/It_is_docx_file.xlsx"
     file_data = x2t.convert(filepath, :xlst)
-    expect(File.exist?(file_data[:tmp_filename])).to be_falsey
+    expect(File).not_to exist(file_data[:tmp_filename])
     expect(file_data[:size_after]).to be_nil
     expect(file_data[:x2t_result]).to eq("Couldn't automatically recognize conversion direction from extensions")
   end

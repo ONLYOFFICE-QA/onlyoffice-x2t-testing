@@ -14,7 +14,7 @@ describe 'Conversion odt files to docx' do
     it File.basename(file) do
       s3.download_file_by_name(file, @tmp_dir)
       @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :docx)
-      expect(File.exist?(@file_data[:tmp_filename])).to be_truthy
+      expect(File).to exist(@file_data[:tmp_filename])
       expect(OoxmlParser::Parser.parse(@file_data[:tmp_filename])).to be_with_data
     end
   end

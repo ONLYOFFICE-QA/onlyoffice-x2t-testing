@@ -13,7 +13,7 @@ describe 'Conversion docx files to odt' do
     it File.basename(file) do
       s3.download_file_by_name(file, @tmp_dir)
       @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :odt)
-      expect(File.exist?(@file_data[:tmp_filename])).to be_truthy
+      expect(File).to exist(@file_data[:tmp_filename])
     end
   end
 
