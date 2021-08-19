@@ -8,6 +8,11 @@ describe 'Conversion tests' do
     @tmp_dir = FileHelper.create_tmp_dir.first
   end
 
+  after do |example|
+    FileHelper.delete_tmp(@tmp_dir)
+    palladium.add_result(example)
+  end
+
   StaticData::CONVERSION_STRAIGHT.each_pair do |format_from, formats_to|
     formats_to.each do |format|
       it "Check converting from #{format_from} to #{format}" do
@@ -16,11 +21,6 @@ describe 'Conversion tests' do
         expect(File).to exist(file_data[:tmp_filename])
       end
     end
-  end
-
-  after do |example|
-    FileHelper.delete_tmp(@tmp_dir)
-    palladium.add_result(example)
   end
 
   it 'Check converting from docx to xlsx negative' do

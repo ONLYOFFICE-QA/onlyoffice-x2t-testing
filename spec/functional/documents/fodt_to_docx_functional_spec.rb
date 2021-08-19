@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# frozen_string_literal: true to all groups or subsets of all groups defined in the example of groups
-
 require 'rspec'
 palladium = PalladiumHelper.new(x2t.version, 'Fodt to Docx')
 result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
