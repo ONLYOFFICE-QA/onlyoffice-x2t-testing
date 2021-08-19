@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+# frozen_string_literal: true to all groups or subsets of all groups defined in the example of groups
+
 require 'rspec'
 palladium = PalladiumHelper.new(x2t.version, 'Fodt to Docx')
 result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 files = s3.get_files_by_prefix('fodt/')
 describe 'Conversion fodt files to docx' do
-  before :each do
+  before do
     @tmp_dir = FileHelper.create_tmp_dir.first
   end
 
@@ -18,7 +20,7 @@ describe 'Conversion fodt files to docx' do
     end
   end
 
-  after :each do |example|
+  after do |example|
     FileHelper.delete_tmp(@tmp_dir)
     palladium.add_result(example, @file_data)
   end

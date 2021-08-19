@@ -4,7 +4,7 @@ require 'rspec'
 palladium = PalladiumHelper.new(x2t.version, 'Conversion tests smoke')
 
 describe 'Conversion tests' do
-  before :each do
+  before do
     @tmp_dir = FileHelper.create_tmp_dir.first
   end
 
@@ -32,7 +32,7 @@ describe 'Conversion tests' do
     expect(file_data[:x2t_result]).to eq("Couldn't automatically recognize conversion direction from extensions")
   end
 
-  after :each do |example|
+  after do |example|
     FileHelper.delete_tmp(@tmp_dir)
     palladium.add_result(example)
   end

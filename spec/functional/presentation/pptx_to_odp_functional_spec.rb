@@ -5,7 +5,7 @@ palladium = PalladiumHelper.new(x2t.version, 'Pptx to Odp')
 result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 files = s3.get_files_by_prefix('pptx/')
 describe 'Conversion pptx files to odp' do
-  before :each do
+  before do
     @tmp_dir = FileHelper.create_tmp_dir.first
   end
 
@@ -17,7 +17,7 @@ describe 'Conversion pptx files to odp' do
     end
   end
 
-  after :each do |example|
+  after do |example|
     FileHelper.delete_tmp(@tmp_dir)
     palladium.add_result(example, @file_data)
   end

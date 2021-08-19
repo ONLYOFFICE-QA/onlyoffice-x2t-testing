@@ -23,7 +23,7 @@ describe 'Assets tests' do
     end
   end
 
-  after :each do |example|
+  after do |example|
     palladium.add_result(example)
   end
 end

@@ -47,8 +47,8 @@ RSpec/DescribeClass:
 # Cop supports --auto-correct.
 # Configuration parameters: .
 # SupportedStyles: implicit, each, example
-RSpec/HookArgument:
-  EnforcedStyle: each
+#RSpec/HookArgument:
+#  EnforcedStyle: each
 
 # Offense count: 2
 # Cop supports --auto-correct.
