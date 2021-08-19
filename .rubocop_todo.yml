@@ -38,25 +38,6 @@ Naming/AccessorMethodName:
 RSpec/DescribeClass:
   Enabled: false
 
-# Offense count: 17
-# Cop supports --auto-correct.
-#RSpec/EmptyLineAfterHook:
-#  Enabled: false
-
-# Offense count: 37
-# Cop supports --auto-correct.
-# Configuration parameters: .
-# SupportedStyles: implicit, each, example
-#RSpec/HookArgument:
-#  EnforcedStyle: each
-
-# Offense count: 2
-# Cop supports --auto-correct.
-#RSpec/HooksBeforeExamples:
-#  Exclude:
-#    - 'spec/smoke/assets_tests_smoke_spec.rb'
-#    - 'spec/smoke/convertion_tests_smoke_spec.rb'
-
 # Offense count: 99
 # Configuration parameters: AssignmentOnly.
 RSpec/InstanceVariable:
@@ -65,19 +46,6 @@ RSpec/InstanceVariable:
 # Offense count: 14
 RSpec/MultipleExpectations:
   Max: 3
-
-# Offense count: 23
-# Cop supports --auto-correct.
-# Configuration parameters: Strict, EnforcedStyle, AllowedExplicitMatchers.
-# SupportedStyles: inflected, explicit
-#RSpec/PredicateMatcher:
-#  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Rake/Desc:
-  Exclude:
-    - 'Rakefile'
 
 # Offense count: 1
 Security/Open:
@@ -88,7 +56,6 @@ Security/Open:
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
   Exclude:
-    - 'spec/**/*'
     - 'test/**/*'
     - 'framework/file_helper.rb'
     - 'framework/palladium_helper.rb'
