@@ -8,6 +8,7 @@ describe 'Conversion xls files to xlsx' do
   before :each do
     @tmp_dir = FileHelper.create_tmp_dir.first
   end
+
   (files - result_sets.map { |result_set| "xls/#{result_set}" }).each do |file|
     it File.basename(file) do
       skip if File.basename(file) == 'price-full.xls'

@@ -40,8 +40,8 @@ RSpec/DescribeClass:
 
 # Offense count: 17
 # Cop supports --auto-correct.
-RSpec/EmptyLineAfterHook:
-  Enabled: false
+#RSpec/EmptyLineAfterHook:
+#  Enabled: false
 
 # Offense count: 37
 # Cop supports --auto-correct.

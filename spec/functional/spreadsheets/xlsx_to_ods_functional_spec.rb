@@ -8,6 +8,7 @@ describe 'Conversion xlsx files to ods' do
   before :each do
     @tmp_dir = FileHelper.create_tmp_dir.first
   end
+
   (files - result_sets.map { |result_set| "xlsx/#{result_set}" }).each do |file|
     next if File.basename(file) == 'сравнение формул.xlsx' # file is too complicated
     next if File.basename(file) == 'Smaller50MB.xlsx' # file is too big
