@@ -18,6 +18,11 @@ describe 'Conversion tests' do
     end
   end
 
+  after do |example|
+    FileHelper.delete_tmp(@tmp_dir)
+    palladium.add_result(example)
+  end
+
   it 'Check converting from docx to xlsx negative' do
     filepath = "#{StaticData::NEW_FILES_DIR}/new.docx"
     file_data = x2t.convert(filepath, :xlsx)
@@ -30,10 +35,5 @@ describe 'Conversion tests' do
     expect(File.exist?(file_data[:tmp_filename])).to be_falsey
     expect(file_data[:size_after]).to be_nil
     expect(file_data[:x2t_result]).to eq("Couldn't automatically recognize conversion direction from extensions")
-  end
-
-  after do |example|
-    FileHelper.delete_tmp(@tmp_dir)
-    palladium.add_result(example)
   end
 end

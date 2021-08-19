@@ -5,6 +5,10 @@ require 'rspec'
 palladium = PalladiumHelper.new(x2t.version, 'Assets tests smoke')
 
 describe 'Assets tests' do
+  after do |example|
+    palladium.add_result(example)
+  end
+
   describe 'libraries' do
     StaticData::LIBS_ARRAY.each do |lib|
       it "Lib #{lib} exist check" do
@@ -21,9 +25,5 @@ describe 'Assets tests' do
     it 'x2t version non empty check' do
       expect(x2t.version).not_to be_empty
     end
-  end
-
-  after do |example|
-    palladium.add_result(example)
   end
 end

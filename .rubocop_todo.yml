@@ -52,10 +52,10 @@ RSpec/DescribeClass:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-RSpec/HooksBeforeExamples:
-  Exclude:
-    - 'spec/smoke/assets_tests_smoke_spec.rb'
-    - 'spec/smoke/convertion_tests_smoke_spec.rb'
+#RSpec/HooksBeforeExamples:
+#  Exclude:
+#    - 'spec/smoke/assets_tests_smoke_spec.rb'
+#    - 'spec/smoke/convertion_tests_smoke_spec.rb'
 
 # Offense count: 99
 # Configuration parameters: AssignmentOnly.
