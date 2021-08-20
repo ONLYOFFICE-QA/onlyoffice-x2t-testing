@@ -11,4 +11,9 @@ gem 'ooxml_parser'
 gem 'palladium'
 gem 'rake'
 gem 'rspec'
-gem 'rubocop'
+
+group :development do
+  gem 'rubocop'
+  gem 'rubocop-rake'
+  gem 'rubocop-rspec'
+end
