@@ -11,7 +11,7 @@ describe 'Conversion ppt files to pptx' do
 
   (files - result_sets.map { |result_set| "ppt/#{result_set}" }).each do |file|
     it File.basename(file) do
-      skip 'https://bugzilla.onlyoffice.com/show_bug.cgi?id=52199' if File.basename(file) == 'yliko_provolis.ppt'
+      skip('https://bugzilla.onlyoffice.com/show_bug.cgi?id=52199') if File.basename(file) == 'yliko_provolis.ppt'
       s3.download_file_by_name(file, @tmp_dir)
       @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :pptx)
       expect(File).to exist(@file_data[:tmp_filename])
