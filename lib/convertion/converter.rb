@@ -39,7 +39,7 @@ class Converter
       `#{command}`
       time << (Time.now - time_before)
     end
-    time << time.inject { |sum, el| sum + el }.to_f / time.size if performance_test
+    time << average_convert_time(time) if performance_test
     check_file_exist(input_filename, output_filepath, time.join(';'))
     LoggerHelper.print_to_log 'End convert'
     puts '--' * 75
@@ -103,5 +103,14 @@ class Converter
     else
       File.open("#{@output_folder}/results.csv", 'w') { |file| file.write "filename;filesize(kbytes);time(sec);convert_status\n" }
     end
+  end
+
+  private
+
+  # Calculate average convert time from array
+  # @param times [Array<Float>] array of convert time
+  # @return [Float] average time of convert
+  def average_convert_time(times)
+    times.inject(:+).to_f / times.size
   end
 end
