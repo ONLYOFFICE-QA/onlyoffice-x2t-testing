@@ -33,7 +33,7 @@ GEM
       onlyoffice_file_helper (~> 0)
     onlyoffice_tcm_helper (0.2.0)
       onlyoffice_file_helper (~> 0)
-    ooxml_parser (0.15.0)
+    ooxml_parser (0.16.0)
       nokogiri (~> 1)
       ruby-filemagic (~> 0)
       rubyzip (~> 2)
