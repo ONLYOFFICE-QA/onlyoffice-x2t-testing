@@ -78,7 +78,7 @@ GEM
     ruby-filemagic (0.7.2)
     ruby-progressbar (1.11.0)
     rubyzip (2.3.2)
-    unicode-display_width (2.0.0)
+    unicode-display_width (2.1.0)
 
 PLATFORMS
   ruby
