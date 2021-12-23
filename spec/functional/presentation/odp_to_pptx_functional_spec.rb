@@ -3,7 +3,7 @@
 require 'rspec'
 palladium = PalladiumHelper.new(x2t.version, 'Odp to Pptx')
 result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
-files = s3.get_files_by_prefix('odp/')
+files = s3.files_from_folder('odp')
 describe 'Conversion odp files to pptx' do
   before do
     @tmp_dir = FileHelper.create_tmp_dir.first
