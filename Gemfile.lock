@@ -28,7 +28,7 @@ GEM
       onlyoffice_logger_helper (~> 1)
       rubyzip (~> 2)
     onlyoffice_logger_helper (1.2.0)
-    onlyoffice_s3_wrapper (0.5.0)
+    onlyoffice_s3_wrapper (0.6.0)
       aws-sdk-s3 (~> 1)
       onlyoffice_file_helper (~> 0)
     onlyoffice_tcm_helper (0.2.0)
@@ -84,7 +84,7 @@ PLATFORMS
 
 DEPENDENCIES
   onlyoffice_logger_helper
-  onlyoffice_s3_wrapper (= 0.5.0)
+  onlyoffice_s3_wrapper (= 0.6.0)
   onlyoffice_tcm_helper
   ooxml_parser
   palladium
