@@ -3,7 +3,7 @@
 require 'rspec'
 palladium = PalladiumHelper.new(x2t.version, 'Ppt to Pptx')
 result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
-files = s3.get_files_by_prefix('ppt/')
+files = s3.files_from_folder('ppt')
 describe 'Conversion ppt files to pptx' do
   before do
     @tmp_dir = FileHelper.create_tmp_dir.first

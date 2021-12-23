@@ -4,7 +4,7 @@ require 'rspec'
 s3 = OnlyofficeS3Wrapper::AmazonS3Wrapper.new
 palladium = PalladiumHelper.new(x2t.version, 'Odt to Docx')
 result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
-files = s3.get_files_by_prefix('odt/')
+files = s3.files_from_folder('odt')
 describe 'Conversion odt files to docx' do
   before do
     @tmp_dir = FileHelper.create_tmp_dir.first
