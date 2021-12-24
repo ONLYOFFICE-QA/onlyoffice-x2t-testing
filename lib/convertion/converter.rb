@@ -99,9 +99,9 @@ class Converter
 
   def first_line_result(performance_test)
     if performance_test
-      File.open("#{@output_folder}/results.csv", 'w') { |file| file.write "filename;filesize(kbytes);time 1;time 2;time 3;time 4;time 5;average;convert_status\n" }
+      File.write("#{@output_folder}/results.csv", "filename;filesize(kbytes);time 1;time 2;time 3;time 4;time 5;average;convert_status\n")
     else
-      File.open("#{@output_folder}/results.csv", 'w') { |file| file.write "filename;filesize(kbytes);time(sec);convert_status\n" }
+      File.write("#{@output_folder}/results.csv", "filename;filesize(kbytes);time(sec);convert_status\n")
     end
   end
 
