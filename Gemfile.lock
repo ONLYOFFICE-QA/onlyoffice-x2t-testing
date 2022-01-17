@@ -31,7 +31,7 @@ GEM
     onlyoffice_s3_wrapper (0.6.0)
       aws-sdk-s3 (~> 1)
       onlyoffice_file_helper (~> 0)
-    onlyoffice_tcm_helper (0.2.0)
+    onlyoffice_tcm_helper (0.3.2)
       onlyoffice_file_helper (~> 0)
     ooxml_decrypt (1.0.0)
       nokogiri (~> 1.10)
