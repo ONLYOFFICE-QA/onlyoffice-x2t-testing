@@ -5,31 +5,31 @@ Is project for testing main conversion lib in onlyoffice documentserver
 ## How it work
 
 X2t utility need 12 libs for work.
- They are placed in documentserver
-  `/var/www/onlyoffice/documentserver/server/FileConverter/bin/`.
-   Easy way to take it - use docker-compose from this project.
-    After it, you need to place all lib's to `/usr/lib`
-     in your server, and then start work with x2t.
+They are placed in documentserver
+`/var/www/onlyoffice/documentserver/server/FileConverter/bin/`.
+Easy way to take it - use docker-compose from this project.
+After it, you need to place all lib's to `/usr/lib`
+in your server, and then start work with x2t.
 
 Example for x2t work:
 
  `x2t file_for_convert.docx resulting_file.ods folder_with_fonts`
 
 `file_for_convert.docx` -
- filename (or filepath)
-  for file for convertion. Right extname is important
+filename (or filepath)
+for file for convertion. Right extname is important
 
 `resulting_file.ods` -
-  filename (or filepath) for resulting
-   file. Right extname is important
+filename (or filepath) for resulting
+file. Right extname is important
 
 `folder_with_fonts` - path to folder with fonts. Optional parameter.
 
 Example for x2t work with xml parameter:
 
 You can use xml file with parameters instead of
-  parameners in command line. For it,
-   create file like this:
+parameners in command line. For it,
+create file like this:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -72,8 +72,8 @@ You can use xml file with parameters instead of
 `m_nFormatTo` - digital code for formal (513 - pdf)
 
 X2t need more libs for convertion to pdf. All necessary
- libs in described in `DoctRenderer.config`,
-  but you can use x2t inside of documentserver for easy setup
+libs in described in `DoctRenderer.config`,
+but you can use x2t inside of documentserver for easy setup
 
 ## Getting Started
 
@@ -120,8 +120,8 @@ Example:
 **convert_from** - is a full path to folder
 
 **convert_to** - is a folder
- name for results. Every conversion will
-  create new dir for files in it
+name for results. Every conversion will
+create new dir for files in it
 
 **format** - files will be converted to this format
 
@@ -144,9 +144,9 @@ rake convert
 * Infinity conversion
 
   There in timeout for conversion in documentserver - 5 minutes.
-   If conversion of some files os hold more time - document will
-    not be saved. It is bad, but sometimes it happens.
-      Need to create bug if this behavior is a new for current file.
+If conversion of some files os hold more time - document will
+not be saved. It is bad, but sometimes it happens.
+Need to create bug if this behavior is a new for current file.
 
 * Errors in console during conversion
 
