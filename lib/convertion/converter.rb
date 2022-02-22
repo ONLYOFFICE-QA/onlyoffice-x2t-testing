@@ -79,6 +79,11 @@ class Converter
     $CHILD_STATUS.exitstatus != 0
   end
 
+  def ds_version
+    version = File.read('.env').strip
+    version.split('=')[-1]
+  end
+
   def convert(performance_test = false)
     @output_folder = "#{@convert_to}/result_#{@output_format}_by_#{Time.now.strftime('%d-%b-%Y_%H-%M-%S')}"
     create_folder @output_folder
