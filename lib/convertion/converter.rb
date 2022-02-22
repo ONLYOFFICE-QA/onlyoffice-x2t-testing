@@ -85,10 +85,12 @@ class Converter
   end
 
   def convert(performance_test = false)
-    @output_folder = "#{@convert_to}/result_#{@output_format}_by_#{Time.now.strftime('%d-%b-%Y_%H-%M-%S')}"
+    files = get_file_paths_list(@convert_from)
+    @input_format = files[0].split('.')[-1]
+    get_ds_version
+    @output_folder = "#{@convert_to}/#{@version}_#{@input_format}_#{@output_format}"
     create_folder @output_folder
     first_line_result(performance_test)
-    files = get_file_paths_list(@convert_from)
     files.each do |current_file_to_convert|
       p current_file_to_convert
       if @output_format == ('docm' || 'xlsm' || 'pptm')
