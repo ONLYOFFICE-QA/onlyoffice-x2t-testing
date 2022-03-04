@@ -34,6 +34,6 @@ describe 'Conversion tests' do
     file_data = x2t.convert(filepath, :xlst)
     expect(File).not_to exist(file_data[:tmp_filename])
     expect(file_data[:size_after]).to be_nil
-    expect(file_data[:x2t_result]).to eq("Couldn't automatically recognize conversion direction from extensions")
+    expect(file_data[:x2t_result]).to be_nil
   end
 end
