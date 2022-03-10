@@ -126,6 +126,11 @@ class FileHelper
       FileUtils.copy(file_path, destination)
     end
 
+    def move_file(file_path, destination)
+      FileUtils.mkdir_p(destination) unless File.directory?(destination)
+      FileUtils.move(file_path, destination)
+    end
+
     def get_file_content_by_link(link)
       file = open(link)
       file.read
