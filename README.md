@@ -81,7 +81,7 @@ but you can use x2t inside of documentserver for easy setup
 
 Change **dockerfile** and **docker-compose** file.
 
-1. Change image in docker-compose.
+1. Change image in .env.
 
 2. Set 3 environment variables in dockerfile:
 
@@ -99,9 +99,17 @@ And then, you can run tests
 
 ``docker-compose up -d x2t-testing``
 
-### Convert Utility
+## Convert Utility
 
 Libs in this project can be used separately of tests like utility for conversion.
+
+### For Start
+
+1. Change image in ``.env.``
+2. Run documentserver docker-compose for getting all libs with the
+command: ``docker-compose up documentserver``
+3. Change ``configure.json``
+4. Run conversion
 
 File **configure.json** contain all settings for it.
 
@@ -109,35 +117,57 @@ Example:
 
 ```bash
 {
-  "convert_from": "/tmp/files",
-  "convert_to": "/tmp/results",
-  "format": "docx",
+  "convert_from": "/tmp/folders_with_files/",
+  "custom_folder": "/tmp/path_to_source_files/",
+  "convert_to": "/tmp/results/",
+  "custom_format": "docx",
+  "conversion_formats": {
+    "doc": "docx",
+    "ppt": "pptx",
+    "xls": "xlsx",
+    "odp": "pptx",
+    "rtf": "docx"
+  },
   "x2t_path": "tmp/x2t",
   "font_path": "tmp/fonts"
 }
 ```
 
-**convert_from** - is a full path to folder
+**convert_from** -  path to folders with documents before conversion,
+the folder names must match the file extension(if the file extension
+in the folder is ".doc", then the folder name must be "doc"), used to
+convert from an array of extensions with the **rake convert[arr]** command
 
-**convert_to** - is a folder
-name for results. Every conversion will
-create new dir for files in it
+**custom_folder** - the path to a separate folder with the source files to
+convert using the **rake convert[cstm]** command
 
-**format** - files will be converted to this format
+**custom_format** - files from **custom_folder** will be converted to this
+format, to convert using the **rake convert[cstm]** command
+
+**convert_to** - is a folder for results.
+
+**conversion_formats** - an array of extensions to convert
 
 **x2t_path** - path to x2t file.
 
 **font_path**- path to fonts folder
 
-After adding settings, you need to run task
+## Сonversion commands
 
-```bash
-rake convert
-```
+ ``rake convert[arr]``- Conversion from an array of extensions specified
+ in**configure.json/conversion_formats**.
+
+ ``rake convert[cstm]`` - Conversion from a separate folder with files.
+
+## Checking ooxmlparser
+
+To enable the ooxmlparser check, pass ``true`` as the second argument to the command.
+Example:
+``rake convert[arr,true]``
 
 ## Troubleshooting
 
-* Error`Couldn't create temp folder`
+* Error `Couldn't create temp folder`
 
   You need to execute x2t with `sudo`, or add more accesses to x2t
 

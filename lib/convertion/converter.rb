@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 
 require_relative '../app_manager'
+require 'ooxml_parser'
 require 'yaml'
 # use Converter.new.convert for convert by config
 class Converter
   def initialize
     config = YAML.load_file('configure.json')
     @convert_from = config['convert_from']
+    @custom_folder = config['custom_folder']
     @convert_to = config['convert_to']
     @bin_path = config['x2t_path']
     @font_path = config['font_path']
-    @output_format = config['format']
+    @conversion_formats = config['conversion_formats']
+    @output_format = config['custom_format']
+    @input_format = Time.now.strftime('%d-%b-%Y_%H-%M-%S').to_s
+    @version_ds = ds_version
   end
 
   # @param [String] path is a path to folder
@@ -24,8 +29,10 @@ class Converter
     FileHelper.create_folder("#{folder_name}/not_converted")
   end
 
+  # conversion file
   # @param [String] input_filename - input filename with format
-  def convert_file(input_filename, performance_test)
+  # @param [Boolean] check_via_ooxml_parser - Enabling and disabling ooxml_parser check
+  def convert_file(input_filename, performance_test, check_via_ooxml_parser)
     count = 1
     count = 5 if performance_test
     output_filepath = get_output_filepath(input_filename)
@@ -42,7 +49,28 @@ class Converter
     time << average_convert_time(time) if performance_test
     check_file_exist(input_filename, output_filepath, time.join(';'))
     LoggerHelper.print_to_log 'End convert'
+    check_ooxmlparser(output_filepath) if check_via_ooxml_parser
     puts '--' * 75
+  end
+
+  # Checking files with ooxmlparser
+  # @param [String] filepath - path to the file to be checked by the ooxmlparser
+  def check_ooxmlparser(filepath)
+    OoxmlParser::Parser.parse(filepath)
+  rescue StandardError => e
+    handle_file_with_error(filepath, e)
+  end
+
+  # Error file handling
+  # @param [String] filepath - path to the file
+  # @param [String] error - error message
+  def handle_file_with_error(file_path, error)
+    LoggerHelper.print_to_log "Error: #{error}"
+    error_folder = "#{@output_folder}/error"
+    FileHelper.move_file(file_path, error_folder)
+    File.open("#{error_folder}/errors.csv", 'a') do |file|
+      file.write "#{file_name(file_path)};#{error};\n"
+    end
   end
 
   def check_file_exist(input_filename, output_filepath, time)
@@ -79,11 +107,21 @@ class Converter
     $CHILD_STATUS.exitstatus != 0
   end
 
-  def convert(performance_test = false)
-    @output_folder = "#{@convert_to}/result_#{@output_format}_by_#{Time.now.strftime('%d-%b-%Y_%H-%M-%S')}"
+  # getting x2t version
+  # @return [String] version of the document server
+  def ds_version
+    `#{@bin_path}`.match(/Version: (.*)/)[1]
+  end
+
+  # method of preparing to convert files
+  # @param [Boolean] performance_test - Enabling and disabling performance_test check
+  # @param [String] file_path - the path to the folder with the files
+  # @param [Boolean] check_via_ooxml_parser - Enabling and disabling ooxml_parser check
+  def convert(performance_test = false, check_via_ooxml_parser = false, file_path = @custom_folder)
+    @output_folder = "#{@convert_to}/#{@version_ds}_#{@input_format}_#{@output_format}"
     create_folder @output_folder
     first_line_result(performance_test)
-    files = get_file_paths_list(@convert_from)
+    files = get_file_paths_list(file_path)
     files.each do |current_file_to_convert|
       p current_file_to_convert
       if @output_format == ('docm' || 'xlsm' || 'pptm')
@@ -92,9 +130,36 @@ class Converter
           next
         end
       end
-      convert_file(current_file_to_convert, performance_test)
+      convert_file(current_file_to_convert, performance_test, check_via_ooxml_parser)
     end
-    @output_folder
+  end
+
+  # Conversion from an array of extensions
+  # @param [Boolean] check_via_ooxml_parser - Enabling and disabling ooxml_parser check
+  def convert_from_array_extensions(check_via_ooxml_parser)
+    @conversion_formats.map do |format|
+      @input_format = format[0]
+      @output_format = format[1]
+      file_path = "#{@convert_from}/#{@input_format}/"
+      convert(false, check_via_ooxml_parser, file_path)
+    end
+  end
+
+  # Validation of conversion parameters
+  # @param [symbol] convert_flag - conversion parameters
+  # @param [Boolean] check_via_ooxml_parser - Enabling and disabling ooxml_parser check
+  def convert_with_options(convert_flag, check_via_ooxml_parser)
+    case convert_flag
+    when :arr
+      convert_from_array_extensions(check_via_ooxml_parser)
+    when :cstm
+      convert(false, check_via_ooxml_parser)
+    else
+      message = 'Input Error' \
+                'Please,enter the correct parameters' \
+                'Example: rake convert[arr]'
+      puts(message)
+    end
   end
 
   def first_line_result(performance_test)

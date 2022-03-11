@@ -1,7 +1,7 @@
 version: '3'
 services:
   documentserver:
-    image: onlyoffice/4testing-documentserver:latest
+    image: "onlyoffice/4testing-documentserver-ee:${DOCSERVER_VERSION}"
     volumes:
       - ./bin/:/tmp
     entrypoint: ["cp", "-ra", "/var/www/onlyoffice/documentserver/server/FileConverter/bin/.", "/tmp"]

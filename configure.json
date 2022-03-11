@@ -1,7 +1,8 @@
 {
-  "convert_from": "path_to_files",
-  "convert_to": "path_for_file_output",
-  "format": "format",
-  "x2t_path": "path_to_x2t",
-  "font_path": "assets/fonts"
+  "convert_from": "",
+  "custom_folder": "",
+  "convert_to": "",
+  "custom_format": "",
+  "conversion_formats": {},
+  "x2t_path": ""
 }
