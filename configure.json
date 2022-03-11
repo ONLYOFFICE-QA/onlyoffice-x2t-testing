@@ -1,12 +1,8 @@
-{"convert_from": "",
+{
+  "convert_from": "",
   "custom_folder": "",
   "convert_to": "",
   "custom_format": "",
-  "conversion_formats": {
-    "doc": "docx",
-    "ppt": "pptx",
-    "xls": "xlsx",
-    "odp": "pptx",
-    "rtf": "docx"
-  },
-  "x2t_path": "./bin/x2t"}
+  "conversion_formats": {},
+  "x2t_path": ""
+}
