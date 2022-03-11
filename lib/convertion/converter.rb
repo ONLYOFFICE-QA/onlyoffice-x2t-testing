@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../app_manager'
+require 'ooxml_parser'
 require 'yaml'
 # use Converter.new.convert for convert by config
 class Converter
@@ -29,7 +30,7 @@ class Converter
   end
 
   # @param [String] input_filename - input filename with format
-  def convert_file(input_filename, performance_test)
+  def convert_file(input_filename, performance_test, ooxmlparser)
     count = 1
     count = 5 if performance_test
     output_filepath = get_output_filepath(input_filename)
@@ -46,7 +47,19 @@ class Converter
     time << average_convert_time(time) if performance_test
     check_file_exist(input_filename, output_filepath, time.join(';'))
     LoggerHelper.print_to_log 'End convert'
+    check_ooxmlparser(output_filepath) if ooxmlparser
     puts '--' * 75
+  end
+
+  def check_ooxmlparser(filepath)
+    OoxmlParser::Parser.parse(filepath)
+  rescue StandardError => e
+    LoggerHelper.print_to_log "Error: #{e}"
+    errorfolder = "#{@output_folder}/error"
+    FileHelper.move_file(filepath, errorfolder)
+    File.open("#{errorfolder}/errors.csv", 'a') do |file|
+      file.write "#{file_name(filepath)};#{e};\n"
+    end
   end
 
   def check_file_exist(input_filename, output_filepath, time)
