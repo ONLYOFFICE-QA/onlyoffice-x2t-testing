@@ -7,10 +7,14 @@ class Converter
   def initialize
     config = YAML.load_file('configure.json')
     @convert_from = config['convert_from']
+    @custom_folder = config['custom_folder']
     @convert_to = config['convert_to']
     @bin_path = config['x2t_path']
     @font_path = config['font_path']
-    @output_format = config['format']
+    @conversion_formats = config['conversion_formats']
+    @output_format = config['custom_format']
+    @input_format = Time.now.strftime('%d-%b-%Y_%H-%M-%S').to_s
+    @version_ds = ds_version
   end
 
   # @param [String] path is a path to folder
@@ -79,18 +83,17 @@ class Converter
     $CHILD_STATUS.exitstatus != 0
   end
 
+  # getting a version of the document server
   def ds_version
     version = File.read('.env').strip
     version.split('=')[-1]
   end
 
-  def convert(performance_test = false)
-    files = get_file_paths_list(@convert_from)
-    @input_format = files[0].split('.')[-1]
-    get_ds_version
-    @output_folder = "#{@convert_to}/#{@version}_#{@input_format}_#{@output_format}"
+  def convert(performance_test = false, ooxmlparser = false, file_path = @custom_folder)
+    @output_folder = "#{@convert_to}/#{@version_ds}_#{@input_format}_#{@output_format}"
     create_folder @output_folder
     first_line_result(performance_test)
+    files = get_file_paths_list(file_path)
     files.each do |current_file_to_convert|
       p current_file_to_convert
       if @output_format == ('docm' || 'xlsm' || 'pptm')
@@ -99,9 +102,31 @@ class Converter
           next
         end
       end
-      convert_file(current_file_to_convert, performance_test)
+      convert_file(current_file_to_convert, performance_test, ooxmlparser)
     end
-    @output_folder
+  end
+
+  def convert_from_array_extensions(parser)
+    @conversion_formats.map do |format|
+      @input_format = format[0]
+      @output_format = format[1]
+      file_path = "#{@convert_from}/#{@input_format}/"
+      convert(false, parser, file_path)
+    end
+  end
+
+  def convert_with_options(convert_flag, parser)
+    case convert_flag
+    when :arr
+      convert_from_array_extensions(parser)
+    when :cstm
+      convert(false, parser)
+    else
+      message = 'Input Error' \
+                'Please,enter the correct parameters' \
+                'Example: rake convert[arr]'
+      puts(message)
+    end
   end
 
   def first_line_result(performance_test)
