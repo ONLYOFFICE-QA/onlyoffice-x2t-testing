@@ -69,11 +69,16 @@ create file like this:
 
 `m_sFileTo` -  filename (or filepath) for resulting file. Right extname is important
 
-`m_nFormatTo` - digital code for formal (513 - pdf)
+`m_nFormatTo` - digital code for formal (513 - [pdf](https://github.com/ONLYOFFICE/core/blob/master/Common/OfficeFileFormats.h#L86))
 
 X2t need more libs for convertion to pdf. All necessary
 libs in described in `DoctRenderer.config`,
 but you can use x2t inside of documentserver for easy setup
+
+To convert via xml use a numeric code in **HEX** format.
+A list of all the codes for the formats is described in the file.
+
+[OfficeFileFormats.h](https://github.com/ONLYOFFICE/core/blob/master/Common/OfficeFileFormats.h)
 
 ## Getting Started
 
