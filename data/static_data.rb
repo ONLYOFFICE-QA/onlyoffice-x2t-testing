@@ -8,6 +8,7 @@ class StaticData
 
   PROJECT_BIN_PATH = "#{File.join(File.dirname(__FILE__), '/..')}/bin"
   FONTS_PATH = "#{File.join(File.dirname(__FILE__), '/..')}/assets/fonts"
+  PARAM_XML_PATH = "#{File.join(File.dirname(__FILE__), '/..')}/assets/parameters.xml"
   CONVERSION_STRAIGHT = {
     docx: %i[doct odt rtf],
     xlsx: %i[xlst],
