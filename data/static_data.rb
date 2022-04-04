@@ -30,6 +30,16 @@ class StaticData
   PALLADIUM_SERVER = 'palladium.teamlab.info'
   POSITIVE_STATUSES = %w[passed passed_2].freeze
 
+  FORMAT_NUMBERS = {
+    docx: '65',
+    odt: '67',
+    rtf: '68',
+    xlsx: '257',
+    ods: '259',
+    pptx: '129',
+    odp: '131'
+  }.freeze
+
   def self.get_palladium_token
     return ENV['PALLADIUM_TOKEN'] if ENV['PALLADIUM_TOKEN']
 
