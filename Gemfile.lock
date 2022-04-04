@@ -88,6 +88,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  nokogiri
   onlyoffice_logger_helper
   onlyoffice_s3_wrapper (>= 0.6.0)
   onlyoffice_tcm_helper
