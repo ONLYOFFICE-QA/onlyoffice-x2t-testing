@@ -10,7 +10,8 @@ def x2t
   @x2t ||= X2t.new(x2t_path: "#{StaticData::PROJECT_BIN_PATH}/x2t",
                    fonts_path: StaticData::FONTS_PATH,
                    lib_path: StaticData::PROJECT_BIN_PATH,
-                   tmp_path: StaticData::TMP_DIR)
+                   tmp_path: StaticData::TMP_DIR,
+                   param_xml_path: StaticData::PARAM_XML_PATH)
 end
 
 RSpec.configure do |config|

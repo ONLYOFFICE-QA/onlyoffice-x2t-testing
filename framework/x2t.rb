@@ -10,6 +10,7 @@ class X2t
     @path = options[:x2t_path]
     @fonts_path = options[:fonts_path]
     @tmp_path = options[:tmp_path]
+    @param_xml_path = options[:param_xml_path]
     ENV['LD_LIBRARY_PATH'] = options[:lib_path]
   end
 
@@ -22,13 +23,36 @@ class X2t
     `#{@path} ` + command
   end
 
+  # @param [String] source_filepath is a path to file for convert
+  # @param [String] converted_filepath file path after conversion
+  # @param [String] format is a format for conversion
+  def amend_parameters_xml(source_filepath, converted_filepath, format)
+    parameters = Nokogiri.XML(File.read(@param_xml_path))
+    path_to_source_file = parameters.at('m_sFileFrom')
+    path_to_source_file.content = source_filepath
+    path_to_converted_file = parameters.at('m_sFileTo')
+    path_to_converted_file.content = converted_filepath
+    output_format = parameters.at('m_nFormatTo')
+    output_format.content = StaticData::FORMAT_NUMBERS[format]
+    fonts_dir = parameters.at('m_sFontDir')
+    fonts_dir.content = @fonts_path
+    File.open(@param_xml_path, 'w') { |f| f << parameters }
+  end
+
   # @param [String] filepath is a path to file for convert
-  def convert(filepath, format)
+  # @param [String] format is a format for conversion
+  # @param [Boolean] with_param_xml enables the conversion with parameters from the xml-file
+  def convert(filepath, format, with_param_xml: true)
     tmp_filename = "#{@tmp_path}/#{Time.now.nsec}.#{format}"
     size_before = File.size(filepath)
     t_start = Time.now
     OnlyofficeLoggerHelper.log "#{@path} \"#{filepath}\" \"#{tmp_filename}\""
-    output = `#{@path} "#{filepath}" "#{tmp_filename}" "#{@fonts_path}" 2>&1`
+    output = if with_param_xml
+               amend_parameters_xml(filepath, tmp_filename, format)
+               `#{@path} "#{@param_xml_path}" 2>&1`
+             else
+               `#{@path} "#{filepath}" "#{tmp_filename}" "#{@fonts_path}" 2>&1`
+             end
     elapsed = Time.now - t_start
     result = { tmp_filename: tmp_filename, elapsed: elapsed, size_before: size_before }
     result[:size_after] = File.size(tmp_filename) if File.exist?(tmp_filename)
