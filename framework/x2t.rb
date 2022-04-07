@@ -13,6 +13,11 @@ class X2t
     ENV['LD_LIBRARY_PATH'] = options[:lib_path]
   end
 
+  def xml
+    @xml ||= XmlParams.new(fonts_path: @fonts_path,
+                           tmp_path: @tmp_path)
+  end
+
   # getting x2t version
   def version
     `#{@path}`.match(/Version: (.*)/)[1]

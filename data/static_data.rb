@@ -29,6 +29,9 @@ class StaticData
   PALLADIUM_SERVER = 'palladium.teamlab.info'
   POSITIVE_STATUSES = %w[passed passed_2].freeze
 
+  # To convert via xml use a decimal number.
+  # A list of all the codes in HEX formats is described in
+  # https://github.com/ONLYOFFICE/core/blob/master/Common/OfficeFileFormats.h
   FORMAT_NUMBERS = {
     docx: '65',
     odt: '67',

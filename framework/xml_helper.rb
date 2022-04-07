@@ -12,14 +12,15 @@ class XmlParams
   # @param [String] source_filepath is a path to file for convert
   # @param [String] converted_filepath file path after conversion
   # @param [String] format is a format for conversion
+  # @return path to xml-file
   def create_xml(source_filepath, converted_filepath, format)
     xml_parameters = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
       xml.TaskQueueDataConvert('xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
                                'xmlns:xsd' => 'http://www.w3.org/2001/XMLSchema') do
-        xml.m_sFileFrom source_filepath
-        xml.m_sFileTo   converted_filepath
-        xml.m_nFormatTo StaticData::FORMAT_NUMBERS[format]
-        xml.m_sFontDir  @fonts_path
+        xml.m_sFileFrom(source_filepath)
+        xml.m_sFileTo(converted_filepath)
+        xml.m_nFormatTo(StaticData::FORMAT_NUMBERS[format])
+        xml.m_sFontDir(@fonts_path)
       end
     end
     write_xml_to_file(xml_parameters)
@@ -27,7 +28,7 @@ class XmlParams
 
   # @return path to xml-file
   def write_xml_to_file(xml_parameters)
-    param_xml_path = "#{@tmp_path}/#{Time.now.nsec}.xml"
+    param_xml_path = "#{@tmp_path}/#{Time.now.nsec}#{SecureRandom.hex(5)}.xml"
     File.open(param_xml_path, 'w') { |f| f << xml_parameters.to_xml }
     param_xml_path
   end
