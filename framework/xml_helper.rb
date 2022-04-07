@@ -12,7 +12,7 @@ class XmlParams
   # @param [String] source_filepath is a path to file for convert
   # @param [String] converted_filepath file path after conversion
   # @param [String] format is a format for conversion
-  # @return path to xml-file
+  # @return [String] path to result xml
   def create_xml(source_filepath, converted_filepath, format)
     xml_parameters = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
       xml.TaskQueueDataConvert('xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
@@ -26,10 +26,12 @@ class XmlParams
     write_xml_to_file(xml_parameters)
   end
 
-  # @return path to xml-file
+  # Creates a unique temporary xml-file
+  # @return [String] path to result xml
   def write_xml_to_file(xml_parameters)
-    param_xml_path = "#{@tmp_path}/#{Time.now.nsec}#{SecureRandom.hex(5)}.xml"
-    File.open(param_xml_path, 'w') { |f| f << xml_parameters.to_xml }
-    param_xml_path
+    file = Tempfile.new(%w[params .xml], @tmp_path)
+    file.write(xml_parameters.to_xml)
+    file.read       # Allows to read a file
+    file.path.to_s
   end
 end
