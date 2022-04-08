@@ -24,7 +24,7 @@ class XmlParams
 
   # @param [String] source_filepath is a path to file for convert
   # @param [String] converted_filepath file path after conversion
-  # @param [String] format is a format for conversion
+  # @param [Symbol] format is a format for conversion
   # @return [String] path to result xml
   def create_xml(source_filepath, converted_filepath, format)
     xml_parameters = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
