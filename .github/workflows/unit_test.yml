@@ -13,5 +13,7 @@ jobs:
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
+      - name: Run tests
+        run: rspec ./spec/unit/xml_params_spec.rb
       - name: Check source files using `rubocop`
         run: rubocop
