@@ -13,6 +13,11 @@ class X2t
     ENV['LD_LIBRARY_PATH'] = options[:lib_path]
   end
 
+  def xml
+    @xml ||= XmlParams.new(fonts_path: @fonts_path,
+                           tmp_path: @tmp_path)
+  end
+
   # getting x2t version
   def version
     `#{@path}`.match(/Version: (.*)/)[1]
@@ -23,12 +28,19 @@ class X2t
   end
 
   # @param [String] filepath is a path to file for convert
-  def convert(filepath, format)
+  # @param [String] format is a format for conversion
+  # @param [Boolean] with_param_xml enables the conversion with parameters from the xml-file
+  def convert(filepath, format, with_param_xml: true)
     tmp_filename = "#{@tmp_path}/#{Time.now.nsec}.#{format}"
     size_before = File.size(filepath)
     t_start = Time.now
     OnlyofficeLoggerHelper.log "#{@path} \"#{filepath}\" \"#{tmp_filename}\""
-    output = `#{@path} "#{filepath}" "#{tmp_filename}" "#{@fonts_path}" 2>&1`
+    output = if with_param_xml
+               param_xml_path = xml.create_xml(filepath, tmp_filename, format)
+               `#{@path} "#{param_xml_path}" 2>&1`
+             else
+               `#{@path} "#{filepath}" "#{tmp_filename}" "#{@fonts_path}" 2>&1`
+             end
     elapsed = Time.now - t_start
     result = { tmp_filename: tmp_filename, elapsed: elapsed, size_before: size_before }
     result[:size_after] = File.size(tmp_filename) if File.exist?(tmp_filename)
