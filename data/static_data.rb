@@ -25,7 +25,7 @@ class StaticData
   NEW_FILES_DIR = "#{File.join(File.dirname(__FILE__), '/..')}/assets/files/new"
   BROKEN_FILES_DIR = "#{File.join(File.dirname(__FILE__), '/..')}/assets/files/broken"
 
-  BROKEN_FILES = JSON.load_file("#{File.join(File.dirname(__FILE__), '/..')}/data/exception_file.json")
+  EXCEPTION_FILES = JSON.load_file("#{Dir.pwd}/data/exception_file.json")
 
   PROJECT_NAME = 'X2t testing'
   PALLADIUM_SERVER = 'palladium.teamlab.info'
