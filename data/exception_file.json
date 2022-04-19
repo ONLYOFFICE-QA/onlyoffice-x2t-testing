@@ -16,5 +16,12 @@
     "M1.3a.xps",
     "M1.1b.xps",
     "M1.11a.xps"
+  ],
+
+  "empty_files": [
+    "empty(слайдов нет).ppt",
+    "empty.rtf",
+    "new.rtf",
+    "empty(пустой слайд).ppt"
   ]
 }

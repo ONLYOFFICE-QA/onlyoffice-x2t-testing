@@ -14,7 +14,9 @@ describe 'Conversion rtf files to docx' do
       s3.download_file_by_name(file, @tmp_dir)
       @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :docx)
       expect(File).to exist(@file_data[:tmp_filename])
-      expect(OoxmlParser::Parser.parse(@file_data[:tmp_filename])).to be_with_data unless StaticData::EMPTY_FILES.include?(File.basename(file))
+      next if StaticData::BROKEN_FILES['empty_files'].include?(File.basename(file))
+
+      expect(OoxmlParser::Parser.parse(@file_data[:tmp_filename])).to be_with_data
     end
   end
 
