@@ -27,8 +27,6 @@ class StaticData
 
   BROKEN_FILES = JSON.load_file("#{File.join(File.dirname(__FILE__), '/..')}/data/exception_file.json")
 
-  EMPTY_FILES = ['empty(слайдов нет).ppt', 'empty.rtf', 'new.rtf', 'empty(пустой слайд).ppt'].freeze
-
   PROJECT_NAME = 'X2t testing'
   PALLADIUM_SERVER = 'palladium.teamlab.info'
   POSITIVE_STATUSES = %w[passed passed_2].freeze
