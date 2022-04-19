@@ -100,3 +100,8 @@ Style/StringConcatenation:
 # URISchemes: http, https
 Layout/LineLength:
   Max: 153
+
+# Offense count: 20
+# Configuration parameters: CountAsOne.
+RSpec/ExampleLength:
+  Max: 7

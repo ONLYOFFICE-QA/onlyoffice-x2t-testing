@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+
 # class with some constants and static data
 class StaticData
   LIBS_ARRAY = %w[libDjVuFile.so libdoctrenderer.so libHtmlFile2.so libHtmlRenderer.so
@@ -22,6 +24,8 @@ class StaticData
   TMP_DIR = "#{File.join(File.dirname(__FILE__), '/..')}/tmp"
   NEW_FILES_DIR = "#{File.join(File.dirname(__FILE__), '/..')}/assets/files/new"
   BROKEN_FILES_DIR = "#{File.join(File.dirname(__FILE__), '/..')}/assets/files/broken"
+
+  BROKEN_FILES = JSON.load_file("#{File.join(File.dirname(__FILE__), '/..')}/data/exception_file.json")
 
   EMPTY_FILES = ['empty(слайдов нет).ppt', 'empty.rtf', 'new.rtf', 'empty(пустой слайд).ppt'].freeze
 
