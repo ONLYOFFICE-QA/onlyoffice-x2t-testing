@@ -2,11 +2,11 @@
 
 require_relative '../app_manager'
 require 'ooxml_parser'
-require 'yaml'
+require 'json'
 # use Converter.new.convert for convert by config
 class Converter
   def initialize
-    config = YAML.load_file('configure.json')
+    config = JSON.load_file('configure.json')
     @convert_from = config['convert_from']
     @custom_folder = config['custom_folder']
     @convert_to = config['convert_to']
@@ -62,7 +62,7 @@ class Converter
   end
 
   # Error file handling
-  # @param [String] filepath - path to the file
+  # @param [String] file_path - path to the file
   # @param [String] error - error message
   def handle_file_with_error(file_path, error)
     LoggerHelper.print_to_log "Error: #{error}"
