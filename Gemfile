@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+gem 'json'
 gem 'nokogiri'
 gem 'onlyoffice_logger_helper'
 gem 'onlyoffice_s3_wrapper', '>= 0.6.0'

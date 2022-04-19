@@ -14,6 +14,8 @@ describe 'Conversion xps files to docx' do
       s3.download_file_by_name(file, @tmp_dir)
       @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :docx)
       expect(File).to exist(@file_data[:tmp_filename])
+      next if StaticData::BROKEN_FILES['broken_xps'].include?(File.basename(file))
+
       expect(OoxmlParser::Parser.parse(@file_data[:tmp_filename])).to be_with_data
     end
   end

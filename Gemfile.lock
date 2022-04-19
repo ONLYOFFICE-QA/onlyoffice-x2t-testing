@@ -20,6 +20,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     diff-lcs (1.5.0)
     jmespath (1.6.1)
+    json (2.6.1)
     mini_portile2 (2.8.0)
     nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
@@ -88,6 +89,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  json
   nokogiri
   onlyoffice_logger_helper
   onlyoffice_s3_wrapper (>= 0.6.0)
