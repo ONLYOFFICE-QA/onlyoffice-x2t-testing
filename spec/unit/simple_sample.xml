@@ -3,5 +3,6 @@
   <m_sFileFrom>./tmp/file.doc</m_sFileFrom>
   <m_sFileTo>./tmp/file.docx</m_sFileTo>
   <m_nFormatTo>65</m_nFormatTo>
+  <m_nCsvTxtEncoding>46</m_nCsvTxtEncoding>
   <m_sFontDir>./assets/fonts</m_sFontDir>
 </TaskQueueDataConvert>

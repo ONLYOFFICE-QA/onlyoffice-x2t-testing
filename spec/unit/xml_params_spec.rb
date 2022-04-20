@@ -5,8 +5,9 @@ describe XmlParams do
   converted_filepath = './tmp/file.docx'
   fonts_path = './assets/fonts'
   format = :docx
+  csv_txt_encoding = '46'
   xml = described_class.new(fonts_path: fonts_path, tmp_path: StaticData::TMP_DIR)
-  created_xml = xml.create_xml(source_filepath, converted_filepath, format)
+  created_xml = xml.create_xml(source_filepath, converted_filepath, format, csv_txt_encoding)
   parsed_result = File.open(created_xml) { |f| Nokogiri::XML(f) }
   it 'check source filepath' do
     expect(parsed_result.at('m_sFileFrom').content).to eq(source_filepath)
@@ -22,6 +23,10 @@ describe XmlParams do
 
   it 'check fonts path' do
     expect(parsed_result.at('m_sFontDir').content).to eq(fonts_path)
+  end
+
+  it 'check CsvTxtEncoding' do
+    expect(parsed_result.at('m_nCsvTxtEncoding').content).to eq(csv_txt_encoding)
   end
 
   it 'comparison of xml files' do
