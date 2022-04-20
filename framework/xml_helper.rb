@@ -25,14 +25,16 @@ class XmlParams
   # @param [String] source_filepath is a path to file for convert
   # @param [String] converted_filepath file path after conversion
   # @param [Symbol] format is a format for conversion
+  # @param [String] csv_txt_encoding is a csv txt encoding number
   # @return [String] path to result xml
-  def create_xml(source_filepath, converted_filepath, format)
+  def create_xml(source_filepath, converted_filepath, format, csv_txt_encoding)
     xml_parameters = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
       xml.TaskQueueDataConvert('xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
                                'xmlns:xsd' => 'http://www.w3.org/2001/XMLSchema') do
         xml.m_sFileFrom(source_filepath)
         xml.m_sFileTo(converted_filepath)
         xml.m_nFormatTo(FORMAT_NUMBERS[format])
+        xml.m_nCsvTxtEncoding(csv_txt_encoding)
         xml.m_sFontDir(@fonts_path)
       end
     end

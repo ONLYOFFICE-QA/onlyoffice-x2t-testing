@@ -30,13 +30,14 @@ class X2t
   # @param [String] filepath is a path to file for convert
   # @param [String] format is a format for conversion
   # @param [Boolean] with_param_xml enables the conversion with parameters from the xml-file
-  def convert(filepath, format, with_param_xml: true)
+  # @param [String] csv_txt_encoding is a csv txt encoding number
+  def convert(filepath, format, with_param_xml: true, csv_txt_encoding: '46')
     tmp_filename = "#{@tmp_path}/#{Time.now.nsec}.#{format}"
     size_before = File.size(filepath)
     t_start = Time.now
     OnlyofficeLoggerHelper.log "#{@path} \"#{filepath}\" \"#{tmp_filename}\""
     output = if with_param_xml
-               param_xml_path = xml.create_xml(filepath, tmp_filename, format)
+               param_xml_path = xml.create_xml(filepath, tmp_filename, format, csv_txt_encoding)
                `#{@path} "#{param_xml_path}" 2>&1`
              else
                `#{@path} "#{filepath}" "#{tmp_filename}" "#{@fonts_path}" 2>&1`
