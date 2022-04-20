@@ -8,8 +8,8 @@ class StaticData
                   libicudata.so.58 libicuuc.so.58 libPdfReader.so libUnicodeConverter.so
                   libXpsFile.so libPdfWriter.so libXpsFile.so libkernel.so libgraphics.so].freeze
 
-  PROJECT_BIN_PATH = "#{File.join(File.dirname(__FILE__), '/..')}/bin"
-  FONTS_PATH = "#{File.join(File.dirname(__FILE__), '/..')}/assets/fonts"
+  PROJECT_BIN_PATH = "#{Dir.pwd}/bin"
+  FONTS_PATH = "#{Dir.pwd}/assets/fonts"
   CONVERSION_STRAIGHT = {
     docx: %i[doct odt rtf],
     xlsx: %i[xlst],
@@ -21,11 +21,11 @@ class StaticData
     xlsx: %i[csv]
   }.freeze
 
-  TMP_DIR = "#{File.join(File.dirname(__FILE__), '/..')}/tmp"
-  NEW_FILES_DIR = "#{File.join(File.dirname(__FILE__), '/..')}/assets/files/new"
-  BROKEN_FILES_DIR = "#{File.join(File.dirname(__FILE__), '/..')}/assets/files/broken"
+  TMP_DIR = "#{Dir.pwd}/tmp"
+  NEW_FILES_DIR = "#{Dir.pwd}/assets/files/new"
+  BROKEN_FILES_DIR = "#{Dir.pwd}/assets/files/broken"
 
-  BROKEN_FILES = JSON.load_file("#{File.join(File.dirname(__FILE__), '/..')}/data/exception_file.json")
+  EXCEPTION_FILES = JSON.load_file("#{Dir.pwd}/data/exception_file.json")
 
   PROJECT_NAME = 'X2t testing'
   PALLADIUM_SERVER = 'palladium.teamlab.info'
