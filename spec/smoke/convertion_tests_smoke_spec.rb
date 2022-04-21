@@ -29,6 +29,12 @@ describe 'Conversion tests' do
     expect(File).not_to exist(file_data[:tmp_filename])
   end
 
+  it 'Check converting without CsvTxtEncoding parameter, negative' do
+    filepath = "#{StaticData::BROKEN_FILES_DIR}/M6.7a.xps"
+    file_data = x2t.convert(filepath, :docx, csv_txt_encoding: '')
+    expect(File).not_to exist(file_data[:tmp_filename])
+  end
+
   it 'Check conversion errors' do
     filepath = "#{StaticData::BROKEN_FILES_DIR}/It_is_docx_file.xlsx"
     file_data = x2t.convert(filepath, :xlst)
