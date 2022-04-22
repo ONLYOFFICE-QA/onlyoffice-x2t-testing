@@ -87,7 +87,7 @@ class FileHelper
     end
 
     def get_mime_by_extension(mime_type)
-      file = "#{ENV['HOME']}/RubymineProjects/TeamLab/Framework/Data/MimeTypes.txt"
+      file = "#{Dir.home}/RubymineProjects/TeamLab/Framework/Data/MimeTypes.txt"
       hash_types = {}
       CSV.foreach(file, encoding: 'UTF-8', col_sep: '|') do |row|
         hash_types[row[0].to_sym] = row[1]
