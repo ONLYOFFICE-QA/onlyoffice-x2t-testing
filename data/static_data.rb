@@ -32,8 +32,6 @@ class StaticData
   POSITIVE_STATUSES = %w[passed passed_2].freeze
 
   def self.get_palladium_token
-    return ENV['PALLADIUM_TOKEN'] if ENV['PALLADIUM_TOKEN']
-
-    File.read("#{ENV['HOME']}/.palladium/token")
+    ENV.fetch('PALLADIUM_TOKEN', File.read("#{Dir.home}/.palladium/token"))
   end
 end
