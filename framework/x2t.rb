@@ -30,8 +30,8 @@ class X2t
   # @param [String] filepath is a path to file for convert
   # @param [Symbol] format is a format for conversion
   # @param [Boolean] with_param_xml enables the conversion with parameters from the xml-file
-  # @param [Symbol] csv_txt_encoding is a csv txt encoding
-  def convert(filepath, format, with_param_xml: true, csv_txt_encoding: :'UTF-8')
+  # @param [String] csv_txt_encoding is a csv txt encoding
+  def convert(filepath, format, with_param_xml: true, csv_txt_encoding: 'UTF-8')
     tmp_filename = "#{@tmp_path}/#{Time.now.nsec}.#{format}"
     size_before = File.size(filepath)
     t_start = Time.now
