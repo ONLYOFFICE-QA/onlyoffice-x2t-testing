@@ -19,8 +19,8 @@ class XmlParams
   # The encoding numbers are in
   # https://github.com/ONLYOFFICE/server/blob/af00c97fb63b609e699259ab23bf52aeb76fa256/Common/sources/commondefines.js#L951
   ENCODING_NUMBERS = {
-    'UTF-8': '46',
-    '': ''
+    'UTF-8' => '46',
+    '' => ''
   }.freeze
 
   # :fonts_path  - is a path to folder with fonts
@@ -33,9 +33,9 @@ class XmlParams
   # @param [String] encoding_name encoding name
   # @return [String] decimal encoding number
   def encode_number_by_name(encoding_name)
-    raise "Unknown encoding: #{encoding_name}" if ENCODING_NUMBERS[encoding_name.to_sym].nil?
+    raise "Unknown encoding: #{encoding_name}" unless ENCODING_NUMBERS.keys.include?(encoding_name)
 
-    ENCODING_NUMBERS[encoding_name.to_sym]
+    ENCODING_NUMBERS[encoding_name]
   end
 
   # @param [String] source_filepath is a path to file for convert
