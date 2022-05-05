@@ -4,12 +4,7 @@ require 'rspec'
 palladium = PalladiumHelper.new(x2t.version, 'Conversion tests smoke')
 
 describe 'Conversion tests' do
-  before do
-    @tmp_dir = FileHelper.create_tmp_dir.first
-  end
-
   after do |example|
-    FileHelper.delete_tmp(@tmp_dir)
     palladium.add_result(example)
   end
 
