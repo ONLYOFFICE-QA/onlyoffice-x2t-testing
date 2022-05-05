@@ -21,7 +21,7 @@ describe 'Conversion xlsx files to ods' do
   end
 
   after do |example|
-    FileHelper.delete_tmp(@tmp_dir)
+    FileHelper.spec_cleanup(@tmp_dir, @file_data[:tmp_filename])
     palladium.add_result(example, @file_data)
   end
 end
