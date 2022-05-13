@@ -14,6 +14,7 @@ describe 'Conversion xlsx files to ods' do
     next if File.basename(file) == 'Smaller50MB.xlsx' # file is too big
 
     it File.basename(file) do
+      skip('https://bugzilla.onlyoffice.com/show_bug.cgi?id=46633') if File.basename(file) == 'rank_prf-09.xlsx'
       s3.download_file_by_name(file, @tmp_dir)
       @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :ods)
       expect(File).to exist(@file_data[:tmp_filename])
