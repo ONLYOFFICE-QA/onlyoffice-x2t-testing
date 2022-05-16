@@ -23,5 +23,20 @@
     "empty.rtf",
     "new.rtf",
     "empty(пустой слайд).ppt"
+  ],
+
+  "large_files_after_conversion_pdf_docx": [
+    "2001-02budgetforcurrentoperations.pdf",
+    "Barrons GRE(12th Edition).pdf",
+    "1999usc22.pdf",
+    "9562_ar.pdf",
+    "Copy of ajar_straxi.pdf",
+    "JMX_1_4_specification.pdf",
+    "acad_aug.pdf",
+    "acpd-10-3189-2010.pdf",
+    "ajar_straxi.pdf",
+    "alain_bosquet_russkaja_mat.pdf",
+    "bankenstatistik102006.pdf",
+    "bt000061.pdf"
   ]
 }

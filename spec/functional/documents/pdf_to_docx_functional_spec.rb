@@ -14,6 +14,9 @@ describe 'Conversion pdf files to docx' do
       s3.download_file_by_name(file, @tmp_dir)
       @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :docx)
       expect(File).to exist(@file_data[:tmp_filename])
+      if StaticData::EXCEPTION_FILES['large_files_after_conversion_pdf_docx'].include?(File.basename(file))
+        skip('https://bugzilla.onlyoffice.com/show_bug.cgi?id=57168')
+      end
       expect(OoxmlParser::Parser.parse(@file_data[:tmp_filename])).to be_with_data
     end
   end
