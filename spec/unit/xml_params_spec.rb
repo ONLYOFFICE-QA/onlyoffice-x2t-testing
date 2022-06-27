@@ -6,7 +6,7 @@ describe XmlParams do
   fonts_path = './assets/fonts'
   format = :docx
   csv_txt_encoding = 'UTF-8'
-  xml = described_class.new(fonts_path: fonts_path, tmp_path: StaticData::TMP_DIR)
+  xml = described_class.new(fonts_path:, tmp_path: StaticData::TMP_DIR)
   created_xml = xml.create_xml(source_filepath, converted_filepath, format, csv_txt_encoding)
   parsed_result = File.open(created_xml) { |f| Nokogiri::XML(f) }
   it 'check source filepath' do
