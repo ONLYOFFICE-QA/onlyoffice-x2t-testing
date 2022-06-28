@@ -24,7 +24,7 @@ class FileHelper
     end
 
     def delete_directory(path)
-      FileUtils.rm_rf(path) if Dir.exist?(path)
+      FileUtils.rm_rf(path, secure: true)
     end
 
     def create_folder(path)

@@ -38,7 +38,7 @@ class Converter
     output_filepath = get_output_filepath(input_filename)
     time = []
     count.times do
-      File.delete(output_filepath) if File.exist?(output_filepath)
+      FileUtils.rm_rf(output_filepath, secure: true)
       LoggerHelper.print_to_log "Start convert file #{input_filename} to #{output_filepath}"
       command = "\"#{@bin_path}\" \"#{input_filename}\" \"#{output_filepath}\" \"#{@font_path}\""
       LoggerHelper.print_to_log "Run command #{command}"
