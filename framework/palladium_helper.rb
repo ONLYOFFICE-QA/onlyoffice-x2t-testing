@@ -4,7 +4,7 @@ require 'palladium'
 class PalladiumHelper
   def initialize(plan_name, run_name)
     @tcm_helper = OnlyofficeTcmHelper::TcmHelper.new(product_name: StaticData::PROJECT_NAME,
-                                                     plan_name: plan_name,
+                                                     plan_name:,
                                                      suite_name: run_name)
     @palladium = Palladium.new(host: StaticData::PALLADIUM_SERVER,
                                token: StaticData.get_palladium_token,

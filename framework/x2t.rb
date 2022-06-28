@@ -43,7 +43,7 @@ class X2t
                `#{@path} "#{filepath}" "#{tmp_filename}" "#{@fonts_path}" 2>&1`
              end
     elapsed = Time.now - t_start
-    result = { tmp_filename: tmp_filename, elapsed: elapsed, size_before: size_before }
+    result = { tmp_filename:, elapsed:, size_before: }
     result[:size_after] = File.size(tmp_filename) if File.exist?(tmp_filename)
     result[:x2t_result] = output.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').split("\n")[0..2].join("\n") if output != ''
     result
