@@ -5,8 +5,8 @@ class FileHelper
   # @param [String] tmp_converted_file is a path to the temporary converted file
   def self.spec_cleanup(tmp_source_file, tmp_converted_file)
     OnlyofficeLoggerHelper.log('Clear tmp files')
-    FileUtils.rm_rf(Dir.glob(tmp_source_file))
-    File.delete(tmp_converted_file) if File.exist? tmp_converted_file
+    FileUtils.rm_rf(Dir.glob(tmp_source_file), secure: true)
+    FileUtils.rm_rf(tmp_converted_file, secure: true)
   end
 
   def self.create_tmp_dir
