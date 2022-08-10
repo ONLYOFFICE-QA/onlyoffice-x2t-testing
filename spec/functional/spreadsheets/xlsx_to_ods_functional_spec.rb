@@ -6,7 +6,7 @@ result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 files = s3.files_from_folder('xlsx')
 describe 'Conversion xlsx files to ods' do
   before do
-    @tmp_dir = FileHelper.create_tmp_dir.first
+    @tmp_dir = create_tmp_dir.first
   end
 
   (files - result_sets.map { |result_set| "xlsx/#{result_set}" }).each do |file|
@@ -22,7 +22,7 @@ describe 'Conversion xlsx files to ods' do
   end
 
   after do |example|
-    FileHelper.spec_cleanup(@tmp_dir, @file_data[:tmp_filename])
+    spec_cleanup(@tmp_dir, @file_data[:tmp_filename])
     palladium.add_result(example, @file_data)
   end
 end

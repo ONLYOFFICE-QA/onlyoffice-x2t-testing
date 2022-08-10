@@ -6,7 +6,7 @@ result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 files = s3.files_from_folder('docx')
 describe 'Conversion docx files to odt' do
   before do
-    @tmp_dir = FileHelper.create_tmp_dir.first
+    @tmp_dir = create_tmp_dir.first
   end
 
   (files - result_sets.map { |result_set| "docx/#{result_set}" }).each do |file|
@@ -18,7 +18,7 @@ describe 'Conversion docx files to odt' do
   end
 
   after do |example|
-    FileHelper.spec_cleanup(@tmp_dir, @file_data[:tmp_filename])
+    spec_cleanup(@tmp_dir, @file_data[:tmp_filename])
     palladium.add_result(example, @file_data)
   end
 end
