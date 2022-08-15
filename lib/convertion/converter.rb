@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require_relative '../app_manager'
-require 'ooxml_parser'
-require 'json'
+
 # use Converter.new.convert for convert by config
 class Converter
+  include OnlyofficeFileHelper
+
   def initialize
     config = JSON.load_file('configure.json')
     @convert_from = config['convert_from']

@@ -23,3 +23,15 @@ RSpec.configure do |config|
   end
   config.shared_context_metadata_behavior = :apply_to_host_groups
 end
+
+def spec_cleanup(tmp_source_file, tmp_converted_file)
+  OnlyofficeLoggerHelper.log('Clear tmp files')
+  FileUtils.rm_rf(Dir.glob(tmp_source_file), secure: true)
+  FileUtils.rm_rf(tmp_converted_file, secure: true)
+end
+
+def create_tmp_dir
+  dirname = Time.now.nsec.to_s
+  OnlyofficeLoggerHelper.log("Create dir with name #{dirname}")
+  FileUtils.makedirs("#{StaticData::TMP_DIR}/#{dirname}")
+end
