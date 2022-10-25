@@ -9,7 +9,9 @@ class StaticData
                   libXpsFile.so libPdfWriter.so libXpsFile.so libkernel.so libgraphics.so].freeze
 
   PROJECT_BIN_PATH = "#{Dir.pwd}/bin"
-  FONTS_PATH = "#{Dir.pwd}/assets/fonts"
+
+  FONTS_PATH = "#{Dir.pwd}/assets/x2t_tester_fonts"
+
   CONVERSION_STRAIGHT = {
     docx: %i[doct odt rtf],
     xlsx: %i[xlst],
