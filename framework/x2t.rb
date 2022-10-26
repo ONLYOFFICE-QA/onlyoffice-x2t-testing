@@ -32,7 +32,11 @@ class X2t
   # @param [Boolean] with_param_xml enables the conversion with parameters from the xml-file
   # @param [String] csv_txt_encoding is a csv txt encoding
   def convert(filepath, format, with_param_xml: true, csv_txt_encoding: 'UTF-8')
-    tmp_filename = "#{@tmp_path}/#{Time.now.nsec}.#{format}"
+    tmp_filename = if %i[png jpg].include?(format)
+                     "#{@tmp_path}/#{Time.now.nsec}.zip"
+                   else
+                     "#{@tmp_path}/#{Time.now.nsec}.#{format}"
+                   end
     size_before = File.size(filepath)
     t_start = Time.now
     OnlyofficeLoggerHelper.log "#{@path} \"#{filepath}\" \"#{tmp_filename}\""

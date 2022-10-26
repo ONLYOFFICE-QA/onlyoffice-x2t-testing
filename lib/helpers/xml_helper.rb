@@ -19,6 +19,11 @@ class XmlParams
     '' => ''
   }.freeze
 
+  IMAGE_FORMAT = {
+    png: '4',
+    jpg: '3'
+  }.freeze
+
   # :fonts_path  - is a path to folder with fonts
   # :tmp_path  - is a path to temp folder
   def initialize(options = {})
@@ -48,6 +53,15 @@ class XmlParams
         xml.m_nFormatTo(FORMAT_NUMBERS[format])
         xml.m_nCsvTxtEncoding(encode_number_by_name(csv_txt_encoding))
         xml.m_sFontDir(@fonts_path)
+        if %i[png jpg].include?(format)
+          xml.m_oThumbnail do
+            xml.format(IMAGE_FORMAT[format])
+            xml.aspect('2')
+            xml.first('false')
+            xml.width(1000)
+            xml.height(1000)
+          end
+        end
       end
     end
     write_xml_to_file(xml_parameters)
