@@ -8,8 +8,10 @@ class StaticData
                   libicudata.so.58 libicuuc.so.58 libPdfReader.so libUnicodeConverter.so
                   libXpsFile.so libPdfWriter.so libXpsFile.so libkernel.so libgraphics.so].freeze
 
+  TMP_DIR = "#{Dir.pwd}/tmp"
   PROJECT_BIN_PATH = "#{Dir.pwd}/bin"
-
+  NEW_FILES_DIR = "#{Dir.pwd}/assets/files/new"
+  BROKEN_FILES_DIR = "#{Dir.pwd}/assets/files/broken"
   FONTS_PATH = "#{Dir.pwd}/assets/x2t_tester_fonts"
 
   CONVERSION_STRAIGHT = {
@@ -22,10 +24,6 @@ class StaticData
     docx: %i[txt],
     xlsx: %i[csv]
   }.freeze
-
-  TMP_DIR = "#{Dir.pwd}/tmp"
-  NEW_FILES_DIR = "#{Dir.pwd}/assets/files/new"
-  BROKEN_FILES_DIR = "#{Dir.pwd}/assets/files/broken"
 
   EXCEPTION_FILES = JSON.load_file("#{Dir.pwd}/data/exception_file.json")
 

@@ -82,6 +82,7 @@ GEM
     ruby-ole (1.2.12.2)
     ruby-progressbar (1.11.0)
     rubyzip (2.3.2)
+    seven_zip_ruby (1.3.0)
     unicode-display_width (2.3.0)
 
 PLATFORMS
@@ -100,6 +101,7 @@ DEPENDENCIES
   rubocop
   rubocop-rake
   rubocop-rspec
+  seven_zip_ruby (~> 1.3)
 
 BUNDLED WITH
    2.3.12

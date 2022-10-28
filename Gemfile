@@ -15,4 +15,5 @@ group :development do
   gem 'rubocop'
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
+  gem 'seven_zip_ruby', '~> 1.3'
 end

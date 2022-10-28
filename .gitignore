@@ -4,3 +4,5 @@ results/
 spec/test_data/tmp
 .bundle/
 bin/
+tmp/
+core/
