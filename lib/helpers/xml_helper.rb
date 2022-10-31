@@ -9,7 +9,7 @@ class XmlParams
                      dotx: '75', dotm: '76', ott: '78', oform: '83', docxf: '84',
                      xlsx: '257', ods: '259', csv: '260', xlsm: '261', xlst: '262', xltm: '263', ots: '266',
                      pptx: '129', odp: '131', ppsx: '132', pptm: '132', ppsm: '133', potx: '135', potm: '136', otp: '138',
-                     jpg: '3', png: '4', pdf: '513' }.freeze
+                     jpg: '1025', png: '1029', pdf: '513' }.freeze
 
   # To convert some files via xml use a encoding decimal number
   # The encoding numbers are in
@@ -17,6 +17,11 @@ class XmlParams
   ENCODING_NUMBERS = {
     'UTF-8' => '46',
     '' => ''
+  }.freeze
+
+  IMAGE_FORMAT = {
+    png: '4',
+    jpg: '3'
   }.freeze
 
   # :fonts_path  - is a path to folder with fonts
@@ -50,7 +55,7 @@ class XmlParams
         xml.m_sFontDir(@fonts_path)
         if %i[png jpg].include?(format)
           xml.m_oThumbnail do
-            xml.format(FORMAT_NUMBERS[format])
+            xml.format(IMAGE_FORMAT[format])
             xml.aspect('2')
             xml.first('false')
             xml.width(1000)
