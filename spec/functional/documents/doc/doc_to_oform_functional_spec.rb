@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 require 'rspec'
-# palladium = PalladiumHelper.new(x2t.version, 'Doc to Jpg')
+# palladium = PalladiumHelper.new(x2t.version, 'Doc to Oform')
 # result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 # files = s3.files_from_folder('doc')
 
 format = 'doc'
 files = Dir["#{StaticData::TMP_DIR}/../documents/*.#{format}"]
 
-describe 'Conversion doc files to jpg' do
+describe 'Conversion doc files to oform' do
   before do
     @tmp_dir = create_tmp_dir.first
   end
@@ -18,7 +18,7 @@ describe 'Conversion doc files to jpg' do
     it File.basename(file) do
       # s3.download_file_by_name(file, @tmp_dir)
       FileUtils.cp(file, "#{@tmp_dir}/#{File.basename(file)}")
-      @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :jpg)
+      @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :oform)
       expect(File).to exist(@file_data[:tmp_filename])
     end
   end
