@@ -9,7 +9,7 @@ class StaticData
                   libXpsFile.so libPdfWriter.so libXpsFile.so libkernel.so libgraphics.so].freeze
 
   TMP_DIR = "#{Dir.pwd}/tmp"
-  PROJECT_BIN_PATH = "#{Dir.pwd}/bin"
+  PROJECT_BIN_PATH = "#{Dir.pwd}/core"
   NEW_FILES_DIR = "#{Dir.pwd}/assets/files/new"
   BROKEN_FILES_DIR = "#{Dir.pwd}/assets/files/broken"
   FONTS_PATH = "#{Dir.pwd}/assets/x2t_tester_fonts"
