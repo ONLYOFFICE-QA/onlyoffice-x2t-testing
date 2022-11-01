@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 require 'rspec'
-# palladium = PalladiumHelper.new(x2t.version, 'Docxf to Png')
+# palladium = PalladiumHelper.new(x2t.version, 'Docxf to Ott')
 # result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 # files = s3.files_from_folder('docxf')
 
 format = 'docxf'
 files = Dir["#{StaticData::TMP_DIR}/../documents/*.#{format}"]
 
-describe 'Conversion docxf files to png' do
+describe 'Conversion docxf files to ott' do
   before do
     @tmp_dir = create_tmp_dir.first
   end
@@ -18,7 +18,7 @@ describe 'Conversion docxf files to png' do
     it File.basename(file) do
       # s3.download_file_by_name(file, @tmp_dir)
       FileUtils.cp(file, "#{@tmp_dir}/#{File.basename(file)}")
-      @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :png)
+      @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :ott)
       expect(File).to exist(@file_data[:tmp_filename])
     end
   end
