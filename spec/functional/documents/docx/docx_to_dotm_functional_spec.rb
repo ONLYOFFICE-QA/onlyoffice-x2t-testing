@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 require 'rspec'
-# palladium = PalladiumHelper.new(x2t.version, 'Docx to Png')
+# palladium = PalladiumHelper.new(x2t.version, 'Docx to Dotm')
 # result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 # files = s3.files_from_folder('docx')
 
 format = 'docx'
 files = Dir["#{StaticData::TMP_DIR}/../documents/*.#{format}"]
 
-describe 'Conversion docx files to png' do
+describe 'Conversion docx files to odt' do
   before do
     @tmp_dir = create_tmp_dir.first
   end
@@ -18,7 +18,7 @@ describe 'Conversion docx files to png' do
     it File.basename(file) do
       # s3.download_file_by_name(file, @tmp_dir)
       FileUtils.cp(file, "#{@tmp_dir}/#{File.basename(file)}")
-      @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :png)
+      @file_data = x2t.convert("#{@tmp_dir}/#{File.basename(file)}", :dotm)
       expect(File).to exist(@file_data[:tmp_filename])
     end
   end
