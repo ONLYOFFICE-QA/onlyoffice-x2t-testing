@@ -18,6 +18,10 @@ class X2t
                            tmp_path: @tmp_path)
   end
 
+  def logger(message)
+    OnlyofficeLoggerHelper.log(message)
+  end
+
   # getting x2t version
   def version
     `#{@path}`.match(/Version: (.*)/)[1]
@@ -42,14 +46,15 @@ class X2t
     OnlyofficeLoggerHelper.log "#{@path} \"#{filepath}\" \"#{tmp_filename}\""
     output = if with_param_xml
                param_xml_path = xml.create_xml(filepath, tmp_filename, format, csv_txt_encoding)
-               `#{@path} "#{param_xml_path}" 2>&1`
+               `#{@path} #{param_xml_path} 2>&1`
              else
-               `#{@path} "#{filepath}" "#{tmp_filename}" "#{@fonts_path}" 2>&1`
+               `#{@path} #{filepath} #{tmp_filename} #{@fonts_path} 2>&1`
              end
     elapsed = Time.now - t_start
     result = { tmp_filename:, elapsed:, size_before: }
     result[:size_after] = File.size(tmp_filename) if File.exist?(tmp_filename)
     result[:x2t_result] = output.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').split("\n")[0..2].join("\n") if output != ''
+    logger result[:x2t_result] if output != ''
     result
   end
 end
