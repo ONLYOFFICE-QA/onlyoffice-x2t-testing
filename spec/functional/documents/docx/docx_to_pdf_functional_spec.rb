@@ -8,7 +8,7 @@ require 'rspec'
 format = 'docx'
 files = Dir["#{StaticData::TMP_DIR}/../documents/*.#{format}"]
 
-describe 'Conversion docx files to odt' do
+describe 'Conversion docx files to pdf' do
   before do
     @tmp_dir = create_tmp_dir.first
   end
