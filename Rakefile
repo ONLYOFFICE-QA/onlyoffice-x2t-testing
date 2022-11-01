@@ -31,4 +31,7 @@ task :download_core do |_t|
       szr.extract_all Dir.pwd.to_s
     end
   end
+
+  # Make the x2t utility executable
+  FileUtils.chmod('+x', Dir.glob("#{Dir.pwd}/#{File.basename(url, '.7z')}/*"))
 end
