@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'benchmark'
 require_relative 'data/static_data'
 require_relative 'lib/app_manager'
 
@@ -39,5 +40,17 @@ task :download_core do |_t|
 
     # Make the x2t utility executable
     FileUtils.chmod('+x', Dir.glob("#{Dir.pwd}/#{File.basename(url, '.7z')}/*"))
+  end
+end
+
+desc 'Estimate documents run'
+task :estimate_documents_run do |_t|
+  Benchmark.bm do |x|
+    x.report(:documents) do
+      `rspec ./spec/functional/documents/oform/* \\
+             ./spec/functional/documents/docxf/* \\
+             ./spec/functional/documents/docx/* \\
+             ./spec/functional/documents/doc/*`
+    end
   end
 end
