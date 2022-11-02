@@ -55,7 +55,7 @@ task :estimate_documents_run do |_t|
   end
 end
 
-desc 'Parallel test with current num cores'
+desc 'Parallel test with current num cores for documents'
 task :parallel_estimate_documents_run, :cores do |_t, args|
   Benchmark.bm do |x|
     x.report(:documents) do
@@ -63,6 +63,46 @@ task :parallel_estimate_documents_run, :cores do |_t, args|
                                          spec/functional/documents/docxf/* \\
                                          spec/functional/documents/docx/* \\
                                          spec/functional/documents/doc/*`
+    end
+  end
+end
+
+desc 'Estimate presentation run'
+task :estimate_presentation_run do |_t|
+  Benchmark.bm do |x|
+    x.report(:presentation) do
+      `rspec spec/functional/presentation/ppt/* \\
+             spec/functional/presentation/pptx/*`
+    end
+  end
+end
+
+desc 'Parallel test with current num cores for presentation'
+task :parallel_estimate_presentation_run, :cores do |_t, args|
+  Benchmark.bm do |x|
+    x.report(:documents) do
+      `parallel_rspec -n #{args[:cores]} spec/functional/presentation/ppt/* \\
+                                         spec/functional/presentation/pptx/*`
+    end
+  end
+end
+
+desc 'Estimate spreadsheets run'
+task :estimate_spreadsheets_run do |_t|
+  Benchmark.bm do |x|
+    x.report(:spreadsheets) do
+      `rspec spec/functional/spreadsheets/xls/* \\
+             spec/functional/spreadsheets/xlsx/*`
+    end
+  end
+end
+
+desc 'Parallel test with current num cores for spreadsheets'
+task :parallel_estimate_spreadsheets_run, :cores do |_t, args|
+  Benchmark.bm do |x|
+    x.report(:documents) do
+      `parallel_rspec -n #{args[:cores]} spec/functional/spreadsheets/xls/* \\
+                                         spec/functional/spreadsheets/xlsx/*`
     end
   end
 end
