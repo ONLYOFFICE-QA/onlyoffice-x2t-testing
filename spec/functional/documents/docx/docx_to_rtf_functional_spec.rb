@@ -4,6 +4,7 @@ require 'rspec'
 # palladium = PalladiumHelper.new(x2t.version, 'Docx to Rtf')
 # result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 # files = s3.files_from_folder('docx')
+
 format = 'docx'
 files = Dir["#{StaticData::TMP_DIR}/../documents/*.#{format}"]
 
