@@ -43,8 +43,8 @@ class XmlParams
   # @param [String] converted_filepath file path after conversion
   # @param [Symbol] format is a format for conversion
   # @param [String] csv_txt_encoding is a csv txt encoding
-  # @return [String] path to result xml
-  def create_xml(source_filepath, converted_filepath, format, csv_txt_encoding)
+  # @return [Tempfile]
+  def create_tmp(source_filepath, converted_filepath, format, csv_txt_encoding)
     xml_parameters = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
       xml.TaskQueueDataConvert('xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
                                'xmlns:xsd' => 'http://www.w3.org/2001/XMLSchema') do
@@ -64,15 +64,16 @@ class XmlParams
         end
       end
     end
-    write_xml_to_file(xml_parameters)
+    write_xml_to_tmp_file(xml_parameters)
   end
 
   # Creates a unique temporary xml-file
-  # @return [String] path to result xml
-  def write_xml_to_file(xml_parameters)
+  # @param [Object] xml_parameters
+  # @return [null, Tempfile]
+  def write_xml_to_tmp_file(xml_parameters)
     file = Tempfile.new(%w[params .xml], @tmp_path)
     file.write(xml_parameters.to_xml)
-    file.read       # Without this line - file cannot be read by x2t for some unknown reason
-    file.path.to_s
+    file.rewind
+    file
   end
 end

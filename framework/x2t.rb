@@ -45,11 +45,15 @@ class X2t
     size_before = File.size(filepath)
     t_start = Time.now
     output = if with_param_xml
-               param_xml_path = xml.create_xml(filepath, tmp_filename, format, csv_txt_encoding)
-               `#{@path} #{param_xml_path} 2>&1`
+               tmp_xml = xml.create_tmp(filepath, tmp_filename, format, csv_txt_encoding)
+               `#{@path} #{tmp_xml.path} 2>&1`
              else
                `#{@path} #{filepath} #{tmp_filename} #{@fonts_path} 2>&1`
              end
+    unless tmp_xml.nil?
+      tmp_xml.close
+      tmp_xml.unlink
+    end
     elapsed = Time.now - t_start
     result = { tmp_filename:, elapsed:, size_before: }
     result[:size_after] = File.size(tmp_filename) if File.exist?(tmp_filename)
