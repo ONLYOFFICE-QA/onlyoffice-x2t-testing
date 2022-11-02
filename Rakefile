@@ -47,10 +47,22 @@ desc 'Estimate documents run'
 task :estimate_documents_run do |_t|
   Benchmark.bm do |x|
     x.report(:documents) do
-      `rspec ./spec/functional/documents/oform/* \\
-             ./spec/functional/documents/docxf/* \\
-             ./spec/functional/documents/docx/* \\
-             ./spec/functional/documents/doc/*`
+      `rspec spec/functional/documents/oform/* \\
+             spec/functional/documents/docxf/* \\
+             spec/functional/documents/docx/* \\
+             spec/functional/documents/doc/*`
+    end
+  end
+end
+
+desc 'Parallel test with current num cores'
+task :parallel_estimate_documents_run, :cores do |_t, args|
+  Benchmark.bm do |x|
+    x.report(:documents) do
+      `parallel_rspec -n #{args[:cores]} spec/functional/documents/oform/* \\
+                                         spec/functional/documents/docxf/* \\
+                                         spec/functional/documents/docx/* \\
+                                         spec/functional/documents/doc/*`
     end
   end
 end
