@@ -35,6 +35,7 @@ class X2t
   # @param [Symbol] format is a format for conversion
   # @param [Boolean] with_param_xml enables the conversion with parameters from the xml-file
   # @param [String] csv_txt_encoding is a csv txt encoding
+  # @return [Hash{Symbol->Unknown}]
   def convert(filepath, format, with_param_xml: true, csv_txt_encoding: 'UTF-8')
     tmp_filename = if %i[png jpg].include?(format)
                      "#{@tmp_path}/#{Time.now.nsec}.zip"
@@ -43,7 +44,6 @@ class X2t
                    end
     size_before = File.size(filepath)
     t_start = Time.now
-    OnlyofficeLoggerHelper.log "#{@path} \"#{filepath}\" \"#{tmp_filename}\""
     output = if with_param_xml
                param_xml_path = xml.create_xml(filepath, tmp_filename, format, csv_txt_encoding)
                `#{@path} #{param_xml_path} 2>&1`
@@ -51,10 +51,11 @@ class X2t
                `#{@path} #{filepath} #{tmp_filename} #{@fonts_path} 2>&1`
              end
     elapsed = Time.now - t_start
-    logger output if output != ''
     result = { tmp_filename:, elapsed:, size_before: }
     result[:size_after] = File.size(tmp_filename) if File.exist?(tmp_filename)
     result[:x2t_result] = output.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').split("\n")[0..2].join("\n") if output != ''
+    logger "\"#{File.basename(filepath)}\" => \"#{File.basename(tmp_filename)}\" elapsed: #{elapsed}"
+    logger result[:x2t_result] if output != ''
     result
   end
 end
