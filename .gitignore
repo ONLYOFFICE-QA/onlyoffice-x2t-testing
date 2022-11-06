@@ -6,3 +6,4 @@ spec/test_data/tmp
 bin/
 tmp/
 core/
+documents

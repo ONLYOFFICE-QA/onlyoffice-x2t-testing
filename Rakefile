@@ -18,16 +18,25 @@ end
 
 desc 'Download core'
 task :download_core do |_t|
-  host_platform = 'linux'
   # branch = 'develop'
-  # version = '99.99.99'
-  # build = '-3141'
-  branch = 'hotfix'
-  version = 'v7.2.1'
-  build = '/latest'
-  arch = 'x64'
+  # version = 'v99.99.99'
+  # build = '99.99.99-3141'
+  @branch = 'hotfix'
+  @version = 'v7.2.1'
+  @build = 'latest'
+  # @build = '7.2.1-49' # The difference in builds for different os
+  @arch = Gem::Platform.local.cpu
 
-  url = "https://repo-doc-onlyoffice-com.s3.amazonaws.com/#{host_platform}/core/#{branch}/#{version}#{build}/#{arch}/core.7z"
+  case Gem::Platform.local.os
+  when 'mingw'
+    @os = 'windows'
+  when 'linux'
+    @os = 'linux'
+  else
+    p 'Error: definition os'
+  end
+
+  url = "https://repo-doc-onlyoffice-com.s3.eu-west-1.amazonaws.com/#{@os}/core/#{@branch}/#{@version}/#{@build}/#{@arch}/core.7z"
 
   result = system("curl #{url} --output #{StaticData::TMP_DIR}/#{File.basename(url)}")
 
@@ -57,14 +66,9 @@ end
 
 desc 'Parallel test with current num cores for documents'
 task :parallel_estimate_documents_run, :cores do |_t, args|
-  Benchmark.bm do |x|
-    x.report(:documents) do
-      `parallel_rspec -n #{args[:cores]} spec/functional/documents/oform/* \\
-                                         spec/functional/documents/docxf/* \\
-                                         spec/functional/documents/docx/* \\
-                                         spec/functional/documents/doc/*`
-    end
-  end
+  before = Time.now
+  system("parallel_rspec -n #{args[:cores]} spec/functional/documents/oform/* spec/functional/documents/docxf/* spec/functional/documents/docx/* spec/functional/documents/doc/*")
+  p "Estimate: #{Time.now - before}"
 end
 
 desc 'Estimate presentation run'
@@ -80,7 +84,7 @@ end
 desc 'Parallel test with current num cores for presentation'
 task :parallel_estimate_presentation_run, :cores do |_t, args|
   Benchmark.bm do |x|
-    x.report(:documents) do
+    x.report(:presentation) do
       `parallel_rspec -n #{args[:cores]} spec/functional/presentation/ppt/* \\
                                          spec/functional/presentation/pptx/*`
     end
@@ -100,7 +104,7 @@ end
 desc 'Parallel test with current num cores for spreadsheets'
 task :parallel_estimate_spreadsheets_run, :cores do |_t, args|
   Benchmark.bm do |x|
-    x.report(:documents) do
+    x.report(:spreadsheets) do
       `parallel_rspec -n #{args[:cores]} spec/functional/spreadsheets/xls/* \\
                                          spec/functional/spreadsheets/xlsx/*`
     end
