@@ -52,61 +52,31 @@ task :download_core do |_t|
   end
 end
 
-desc 'Estimate documents run'
-task :estimate_documents_run do |_t|
-  Benchmark.bm do |x|
-    x.report(:documents) do
-      `rspec spec/functional/documents/oform/* \\
-             spec/functional/documents/docxf/* \\
-             spec/functional/documents/docx/* \\
-             spec/functional/documents/doc/*`
-    end
-  end
-end
-
-desc 'Parallel test with current num cores for documents'
-task :parallel_estimate_documents_run, :cores do |_t, args|
-  before = Time.now
-  system("parallel_rspec -n #{args[:cores]} spec/functional/documents/oform/* spec/functional/documents/docxf/* spec/functional/documents/docx/* spec/functional/documents/doc/*")
-  p "Estimate: #{Time.now - before}"
-end
-
-desc 'Estimate presentation run'
-task :estimate_presentation_run do |_t|
-  Benchmark.bm do |x|
-    x.report(:presentation) do
-      `rspec spec/functional/presentation/ppt/* \\
-             spec/functional/presentation/pptx/*`
-    end
-  end
-end
-
-desc 'Parallel test with current num cores for presentation'
-task :parallel_estimate_presentation_run, :cores do |_t, args|
-  Benchmark.bm do |x|
-    x.report(:presentation) do
-      `parallel_rspec -n #{args[:cores]} spec/functional/presentation/ppt/* \\
-                                         spec/functional/presentation/pptx/*`
-    end
-  end
-end
-
-desc 'Estimate spreadsheets run'
-task :estimate_spreadsheets_run do |_t|
-  Benchmark.bm do |x|
-    x.report(:spreadsheets) do
-      `rspec spec/functional/spreadsheets/xls/* \\
-             spec/functional/spreadsheets/xlsx/*`
-    end
-  end
-end
-
-desc 'Parallel test with current num cores for spreadsheets'
-task :parallel_estimate_spreadsheets_run, :cores do |_t, args|
-  Benchmark.bm do |x|
-    x.report(:spreadsheets) do
-      `parallel_rspec -n #{args[:cores]} spec/functional/spreadsheets/xls/* \\
-                                         spec/functional/spreadsheets/xlsx/*`
-    end
-  end
+desc 'Estimate run'
+task :estimate_run, :cores, :specs do |_t, args|
+  presentation_specs = 'spec/functional/presentation/ppt/* \\
+                        spec/functional/presentation/pptx/*'
+  documents_specs = 'spec/functional/documents/oform/* \\
+                     spec/functional/documents/docxf/* \\
+                     spec/functional/documents/docx/* \\
+                     spec/functional/documents/doc/*'
+  spreadsheets_spec = 'spec/functional/spreadsheets/xls/* \\
+                       spec/functional/spreadsheets/xlsx/*'
+  specs_for_test = case args[:specs].to_sym
+                   when :presentation
+                     presentation_specs
+                   when :documents
+                     documents_specs
+                   when :spreadsheets
+                     spreadsheets_spec
+                   when :all
+                     "#{presentation_specs} #{documents_specs} #{spreadsheets_spec}"
+                   else
+                     message = 'Input Error. Please, enter the correct parameters, ' \
+                               'Example: rake estimate_run[core, specs]'
+                     puts(message)
+                   end
+  time_before = Time.now
+  system("parallel_rspec -n #{args[:cores]} #{specs_for_test}")
+  p "Result time in seconds: #{time_before - Time.now}"
 end
