@@ -32,6 +32,9 @@ task :download_core do |_t|
     @os = 'windows'
   when 'linux'
     @os = 'linux'
+  when 'darwin'
+    @os = 'mac'
+    @arch = @arch.sub('arm', 'x')
   else
     p 'Error: definition os'
   end
