@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'benchmark'
 require_relative 'data/static_data'
 require_relative 'lib/app_manager'
 
@@ -32,6 +31,7 @@ task :download_core do |_t|
     @os = 'windows'
   when 'linux'
     @os = 'linux'
+    @arch = @arch.sub('86_', '')
   when 'darwin'
     @os = 'mac'
     @arch = @arch.sub('arm', 'x')
@@ -53,6 +53,9 @@ task :download_core do |_t|
     # Make the x2t utility executable
     FileUtils.chmod('+x', Dir.glob("#{Dir.pwd}/#{File.basename(url, '.7z')}/*"))
   end
+
+  XmlParams.create_doc_renderer_config(StaticData::PROJECT_BIN_PATH)
+  FileUtils.cp('assets/AllFonts.js', 'core')
 end
 
 desc 'Estimate run'

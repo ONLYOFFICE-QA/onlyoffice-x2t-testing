@@ -27,6 +27,8 @@ class StaticData
 
   EXCEPTION_FILES = JSON.load_file("#{Dir.pwd}/data/exception_file.json")
 
+  DEPENDENCIES_X2T = JSON.load_file("#{Dir.pwd}/data/dependencies_x2t.json")
+
   PROJECT_NAME = 'X2t testing'
   PALLADIUM_SERVER = 'palladium.teamlab.info'
   POSITIVE_STATUSES = %w[passed passed_2].freeze
