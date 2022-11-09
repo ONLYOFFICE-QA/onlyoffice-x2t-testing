@@ -31,29 +31,27 @@ class X2t
     `#{@path} ` + command
   end
 
+  # @param [Symbol] format is a format for conversion
+  # @return [String] Path to conversion file
+  def generate_temp_filename(format)
+    if %i[png jpg].include?(format)
+      "#{@tmp_path}/#{Time.now.nsec}.zip"
+    else
+      "#{@tmp_path}/#{Time.now.nsec}.#{format}"
+    end
+  end
+
   # @param [String] filepath is a path to file for convert
   # @param [Symbol] format is a format for conversion
-  # @param [Boolean] with_param_xml enables the conversion with parameters from the xml-file
   # @param [String] csv_txt_encoding is a csv txt encoding
   # @return [Hash{Symbol->Unknown}]
-  def convert(filepath, format, with_param_xml: true, csv_txt_encoding: 'UTF-8')
-    tmp_filename = if %i[png jpg].include?(format)
-                     "#{@tmp_path}/#{Time.now.nsec}.zip"
-                   else
-                     "#{@tmp_path}/#{Time.now.nsec}.#{format}"
-                   end
+  def convert(filepath, format, csv_txt_encoding: 'UTF-8')
+    tmp_filename = generate_temp_filename(format)
     size_before = File.size(filepath)
     t_start = Time.now
-    output = if with_param_xml
-               tmp_xml = xml.create_tmp(filepath, tmp_filename, format, csv_txt_encoding)
-               `#{@path} #{tmp_xml.path} 2>&1`
-             else
-               `#{@path} #{filepath} #{tmp_filename} #{@fonts_path} 2>&1`
-             end
-    unless tmp_xml.nil?
-      tmp_xml.close
-      tmp_xml.unlink
-    end
+    tmp_xml = xml.create_tmp(filepath, tmp_filename, format, csv_txt_encoding)
+    output = `#{@path} #{tmp_xml.path} 2>&1`
+    tmp_xml.close!
     elapsed = Time.now - t_start
     result = { tmp_filename:, elapsed:, size_before: }
     result[:size_after] = File.size(tmp_filename) if File.exist?(tmp_filename)
