@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rspec'
-# palladium = PalladiumHelper.new(x2t.version, 'Oform to Fb2')
+result_handler = ResultHandler.new(x2t.version, 'Oform to Fb2')
 # result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 # files = s3.files_from_folder('oform')
 
@@ -25,6 +25,6 @@ describe 'Conversion oform files to fb2' do
 
   after do |example|
     spec_cleanup(@tmp_dir, @file_data[:tmp_filename])
-    # palladium.add_result(example, @file_data)
+    result_handler.add_result(example)
   end
 end

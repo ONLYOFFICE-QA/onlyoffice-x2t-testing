@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rspec'
-# palladium = PalladiumHelper.new(x2t.version, 'Ppt to Ppsm')
+result_handler = ResultHandler.new(x2t.version, 'Ppt to Ppsm')
 # result_sets = palladium.get_result_sets(StaticData::POSITIVE_STATUSES)
 # files = s3.files_from_folder('ppt')
 
@@ -25,6 +25,6 @@ describe 'Conversion ppt files to odt' do
 
   after do |example|
     spec_cleanup(@tmp_dir, @file_data[:tmp_filename])
-    # palladium.add_result(example, @file_data)
+    result_handler.add_result(example)
   end
 end
