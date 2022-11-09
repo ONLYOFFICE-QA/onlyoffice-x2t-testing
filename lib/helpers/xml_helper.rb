@@ -81,13 +81,13 @@ class XmlParams
   # @return [Object]
   def self.generate_doc_renderer_xml(args)
     Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
-      xml.Settings {
+      xml.Settings do
         xml.file(args.fetch('native'))
         xml.file(args.fetch('jquery_native'))
         xml.allfonts(args.fetch('AllFonts'))
         xml.file(args.fetch('xregexp_all_min'))
         xml.sdkjs(args.fetch('sdkjs'))
-      }
+      end
     end.to_xml
   end
 
