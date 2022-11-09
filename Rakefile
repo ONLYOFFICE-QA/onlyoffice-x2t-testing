@@ -64,14 +64,9 @@ end
 
 desc 'Estimate run'
 task :estimate_run, :cores, :specs do |_t, args|
-  presentation_specs = 'spec/functional/presentation/ppt/* \\
-                        spec/functional/presentation/pptx/*'
-  documents_specs = 'spec/functional/documents/oform/* \\
-                     spec/functional/documents/docxf/* \\
-                     spec/functional/documents/docx/* \\
-                     spec/functional/documents/doc/*'
-  spreadsheets_spec = 'spec/functional/spreadsheets/xls/* \\
-                       spec/functional/spreadsheets/xlsx/*'
+  presentation_specs = 'spec/functional/presentation/ppt/* spec/functional/presentation/pptx/*'
+  documents_specs = 'spec/functional/documents/oform/* spec/functional/documents/docxf/* spec/functional/documents/docx/* spec/functional/documents/doc/*'
+  spreadsheets_spec = 'spec/functional/spreadsheets/xls/* spec/functional/spreadsheets/xlsx/*'
   specs_for_test = case args[:specs].to_sym
                    when :presentation
                      presentation_specs
