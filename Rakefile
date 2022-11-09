@@ -2,8 +2,9 @@
 
 require_relative 'data/static_data'
 require_relative 'lib/app_manager'
+require_relative 'management'
 
-desc 'convert files from custom configure.json'
+desc 'Convert files from custom configure.json'
 task :convert, :convert_flag, :parser do |_t, args|
   parser = args[:parser]
   convert_flag = args[:convert_flag].to_sym
@@ -16,14 +17,14 @@ task :convert_only_report do |_t|
 end
 
 desc 'Download core'
-task :download_core do |_t|
+task :core do |_t|
   # branch = 'develop'
   # version = 'v99.99.99'
   # build = '99.99.99-3141'
   @branch = 'hotfix'
   @version = 'v7.2.1'
   @build = 'latest'
-  # @build = '7.2.1-49' # The difference in builds for different os
+  # @build = '7.2.1-53' # The difference in builds for different os
   @arch = Gem::Platform.local.cpu
 
   case Gem::Platform.local.os
@@ -51,7 +52,7 @@ task :download_core do |_t|
     end
 
     # Make the x2t utility executable
-    FileUtils.chmod('+x', Dir.glob("#{Dir.pwd}/#{File.basename(url, '.7z')}/*"))
+    FileUtils.chmod('+x', Dir.glob("#{Dir.pwd}/#{File.basename(url, '.7z')}/*")) if @os.include?('linux')
   end
 
   XmlParams.create_doc_renderer_config(StaticData::PROJECT_BIN_PATH)
