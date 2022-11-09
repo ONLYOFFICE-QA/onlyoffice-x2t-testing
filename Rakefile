@@ -84,5 +84,5 @@ task :estimate_run, :cores, :specs do |_t, args|
                    end
   time_before = Time.now
   system("parallel_rspec -n #{args[:cores]} #{specs_for_test}")
-  p "Result time in seconds: #{time_before - Time.now}"
+  p "Result time in seconds: #{Time.now - time_before}"
 end
