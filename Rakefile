@@ -56,7 +56,10 @@ task :core do |_t|
   end
 
   XmlParams.create_doc_renderer_config(StaticData::PROJECT_BIN_PATH)
-  FileUtils.cp('assets/AllFonts.js', 'core')
+
+  # Generate AllFonts.js
+  `#{StaticData::PROJECT_BIN_PATH}/standardtester`
+  FileUtils.cp("#{StaticData::PROJECT_BIN_PATH}/fonts/AllFonts.js", StaticData::PROJECT_BIN_PATH.to_s)
 end
 
 desc 'Estimate run'
