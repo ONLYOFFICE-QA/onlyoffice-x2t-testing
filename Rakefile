@@ -18,9 +18,9 @@ end
 
 desc 'Download core'
 task :core do |_t|
-  # branch = 'develop'
-  # version = 'v99.99.99'
-  # build = '99.99.99-3141'
+  # @branch = 'develop'
+  # @version = 'v99.99.99'
+  # @build = '99.99.99.3137'
   @branch = 'hotfix'
   @version = 'v7.2.1'
   @build = 'latest'
@@ -41,6 +41,7 @@ task :core do |_t|
   end
 
   url = "https://repo-doc-onlyoffice-com.s3.eu-west-1.amazonaws.com/#{@os}/core/#{@branch}/#{@version}/#{@build}/#{@arch}/core.7z"
+  url = "https://s3.eu-west-1.amazonaws.com/repo-doc-onlyoffice-com/#{@os}/core/#{@branch}/#{@build}/#{@arch}/core.7z" if @build.include?('99.99.99')
 
   result = system("curl #{url} --output #{StaticData::TMP_DIR}/#{File.basename(url)}")
 
