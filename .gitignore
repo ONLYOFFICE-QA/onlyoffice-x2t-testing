@@ -8,3 +8,4 @@ tmp/
 documents/
 documentserver-snap/
 core/
+/reports/*
