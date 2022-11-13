@@ -20,7 +20,7 @@ desc 'Download core'
 task :core do |_t|
   # @branch = 'develop'
   # @version = 'v99.99.99'
-  # @build = '99.99.99.3137'
+  # @build = '99.99.99.3166'
   @branch = 'hotfix'
   @version = 'v7.2.1'
   @build = 'latest'
@@ -40,6 +40,7 @@ task :core do |_t|
     p 'Error: definition os'
   end
 
+  @build = @build.sub(/.*\K\./, '-') if @build.include?('99.99.99') & @os.include?('linux')
   url = "https://repo-doc-onlyoffice-com.s3.eu-west-1.amazonaws.com/#{@os}/core/#{@branch}/#{@version}/#{@build}/#{@arch}/core.7z"
   url = "https://s3.eu-west-1.amazonaws.com/repo-doc-onlyoffice-com/#{@os}/core/#{@branch}/#{@build}/#{@arch}/core.7z" if @build.include?('99.99.99')
 
