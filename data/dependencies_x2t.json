@@ -1,0 +1,7 @@
+{
+  "native": "./sdkjs/common/Native/native.js",
+  "jquery_native": "./sdkjs/common/Native/jquery_native.js",
+  "AllFonts": "./fonts/AllFonts.js",
+  "xregexp_all_min": "./sdkjs/vendor/xregexp/xregexp-all-min.js",
+  "sdkjs": "./sdkjs"
+}

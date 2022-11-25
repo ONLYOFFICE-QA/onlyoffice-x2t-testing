@@ -17,7 +17,6 @@ describe 'Conversion pdf files to docx' do
       if StaticData::EXCEPTION_FILES['large_files_after_conversion_pdf_docx'].include?(File.basename(file))
         skip('https://bugzilla.onlyoffice.com/show_bug.cgi?id=57168')
       end
-      expect(OoxmlParser::Parser.parse(@file_data[:tmp_filename])).to be_with_data
     end
   end
 

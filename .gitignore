@@ -1,6 +1,11 @@
 .idea/
+.bundle/
 assets/x2t/x2t
 results/
 spec/test_data/tmp
-.bundle/
 bin/
+tmp/
+documents/
+documentserver-snap/
+core/
+/reports/*
