@@ -6,9 +6,9 @@ class XmlParams
   # A list of all the codes in HEX formats is described in
   # https://github.com/ONLYOFFICE/core/blob/master/Common/OfficeFileFormats.h
   FORMAT_NUMBERS = { docx: '65', odt: '67', rtf: '68', txt: '69', html: '82', epub: '72', fb2: '73', docm: '75',
-                     dotx: '75', dotm: '76', ott: '79', oform: '85', docxf: '86',
+                     dotx: '76', dotm: '77', ott: '79', oform: '85', docxf: '86',
                      xlsx: '257', ods: '259', csv: '260', xlsm: '261', xlst: '262', xltm: '263', ots: '266',
-                     pptx: '129', odp: '131', ppsx: '132', pptm: '132', ppsm: '133', potx: '135', potm: '136', otp: '138',
+                     pptx: '129', odp: '131', ppsx: '132', pptm: '133', ppsm: '134', potx: '135', potm: '136', otp: '138',
                      jpg: '1025', png: '1029', pdf: '513' }.freeze
 
   # To convert some files via xml use a encoding decimal number
