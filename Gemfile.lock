@@ -42,7 +42,7 @@ GEM
       ooxml_decrypt (~> 1)
       rubyzip (~> 2)
     palladium (1.1.0)
-    parallel (1.22.1)
+    parallel (1.23.0)
     parser (3.2.2.1)
       ast (~> 2.4.1)
     racc (1.6.2)
