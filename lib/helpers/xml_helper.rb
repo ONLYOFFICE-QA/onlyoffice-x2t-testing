@@ -62,7 +62,7 @@ class XmlParams
   def write_xml_to_file(xml_parameters)
     file = Tempfile.new(%w[params .xml], @tmp_path)
     file.write(xml_parameters.to_xml)
-    file.read       # Without this line - file cannot be read by x2t for some unknown reason
+    file.read # Without this line - file cannot be read by x2t for some unknown reason
     file.path.to_s
   end
 end
