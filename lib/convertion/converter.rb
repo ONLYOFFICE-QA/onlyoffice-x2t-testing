@@ -100,7 +100,7 @@ class Converter
   end
 
   def get_output_filepath(filepath)
-    @output_folder + '/' + File.basename(filepath, '.*') + '.' + @output_format
+    "#{@output_folder}/#{File.basename(filepath, '.*')}.#{@output_format}"
   end
 
   def check_macros(file)

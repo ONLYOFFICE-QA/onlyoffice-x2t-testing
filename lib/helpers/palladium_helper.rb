@@ -46,13 +46,13 @@ class PalladiumHelper
       comment += "\n#{exception.to_s.gsub('got:', "got:\n").gsub('expected:', "expected:\n")}\n"
     elsif exception.to_s.include?('to return') || exception.to_s.include?('expected')
       result = :failed
-      comment += "\n" + exception.to_s.gsub('to return ', "to return:\n").gsub(', got ', "\ngot:\n")
+      comment += "\n#{exception.to_s.gsub('to return ', "to return:\n").gsub(', got ', "\ngot:\n")}"
     elsif exception.nil?
       result = :passed
       comment += "\nOk"
     else
       result = :aborted
-      comment += "\n" + exception.to_s
+      comment += "\n#{exception}"
     end
     [result, comment]
   end
