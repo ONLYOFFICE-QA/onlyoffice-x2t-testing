@@ -43,8 +43,9 @@ GEM
       rubyzip (~> 2)
     palladium (1.1.0)
     parallel (1.24.0)
-    parser (3.2.2.1)
+    parser (3.2.2.4)
       ast (~> 2.4.1)
+      racc
     racc (1.7.3)
     rainbow (3.1.1)
     rake (13.1.0)
