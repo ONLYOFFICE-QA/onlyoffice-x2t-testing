@@ -18,11 +18,18 @@ class PalladiumHelper
     if file_data
       result_message = JSON.parse(@tcm_helper.result_message)
       result_message['describer'] << { value: file_data[:x2t_result], title: 'x2t_output' } if file_data[:x2t_result]
-      result_message['describer'] << { value: file_data[:size_before], title: 'size_before (byte)' } if file_data[:size_before]
-      result_message['describer'] << { value: file_data[:size_after], title: 'size_after (byte)' } if file_data[:size_after]
+      if file_data[:size_before]
+        result_message['describer'] << { value: file_data[:size_before],
+                                         title: 'size_before (byte)' }
+      end
+      if file_data[:size_after]
+        result_message['describer'] << { value: file_data[:size_after],
+                                         title: 'size_after (byte)' }
+      end
       @tcm_helper.result_message = result_message.to_json
     end
-    @palladium.set_result(status: @tcm_helper.status.to_s, description: @tcm_helper.result_message, name: @tcm_helper.case_name)
+    @palladium.set_result(status: @tcm_helper.status.to_s, description: @tcm_helper.result_message,
+                          name: @tcm_helper.case_name)
     OnlyofficeLoggerHelper.log("Test is #{@tcm_helper.status}")
     OnlyofficeLoggerHelper.log(get_result_set_link)
   end
@@ -46,13 +53,13 @@ class PalladiumHelper
       comment += "\n#{exception.to_s.gsub('got:', "got:\n").gsub('expected:', "expected:\n")}\n"
     elsif exception.to_s.include?('to return') || exception.to_s.include?('expected')
       result = :failed
-      comment += "\n" + exception.to_s.gsub('to return ', "to return:\n").gsub(', got ', "\ngot:\n")
+      comment += "\n#{exception.to_s.gsub('to return ', "to return:\n").gsub(', got ', "\ngot:\n")}"
     elsif exception.nil?
       result = :passed
       comment += "\nOk"
     else
       result = :aborted
-      comment += "\n" + exception.to_s
+      comment += "\n#{exception}"
     end
     [result, comment]
   end

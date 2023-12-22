@@ -100,7 +100,7 @@ class Converter
   end
 
   def get_output_filepath(filepath)
-    @output_folder + '/' + File.basename(filepath, '.*') + '.' + @output_format
+    "#{@output_folder}/#{File.basename(filepath, '.*')}.#{@output_format}"
   end
 
   def check_macros(file)
@@ -125,11 +125,9 @@ class Converter
     files = get_file_paths_list(file_path)
     files.each do |current_file_to_convert|
       p current_file_to_convert
-      if @output_format == ('docm' || 'xlsm' || 'pptm')
-        if check_macros(current_file_to_convert)
-          p "Skip #{current_file_to_convert} because it has no macros for #{@output_format}"
-          next
-        end
+      if @output_format == ('docm' || 'xlsm' || 'pptm') && check_macros(current_file_to_convert)
+        p "Skip #{current_file_to_convert} because it has no macros for #{@output_format}"
+        next
       end
       convert_file(current_file_to_convert, performance_test, check_via_ooxml_parser)
     end
@@ -165,7 +163,8 @@ class Converter
 
   def first_line_result(performance_test)
     if performance_test
-      File.write("#{@output_folder}/results.csv", "filename;filesize(kbytes);time 1;time 2;time 3;time 4;time 5;average;convert_status\n")
+      File.write("#{@output_folder}/results.csv",
+                 "filename;filesize(kbytes);time 1;time 2;time 3;time 4;time 5;average;convert_status\n")
     else
       File.write("#{@output_folder}/results.csv", "filename;filesize(kbytes);time(sec);convert_status\n")
     end
