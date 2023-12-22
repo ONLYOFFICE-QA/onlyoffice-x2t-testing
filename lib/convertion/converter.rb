@@ -125,11 +125,9 @@ class Converter
     files = get_file_paths_list(file_path)
     files.each do |current_file_to_convert|
       p current_file_to_convert
-      if @output_format == ('docm' || 'xlsm' || 'pptm')
-        if check_macros(current_file_to_convert)
-          p "Skip #{current_file_to_convert} because it has no macros for #{@output_format}"
-          next
-        end
+      if @output_format == ('docm' || 'xlsm' || 'pptm') && check_macros(current_file_to_convert)
+        p "Skip #{current_file_to_convert} because it has no macros for #{@output_format}"
+        next
       end
       convert_file(current_file_to_convert, performance_test, check_via_ooxml_parser)
     end
