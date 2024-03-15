@@ -1,5 +1,9 @@
 # Testing x2t
 
+***The x2t-testing project is deprecated***
+
+Please refer to [x2ttester_wrapper](https://github.com/ONLYOFFICE-QA/x2ttester_wrapper)
+
 Is project for testing main conversion lib in onlyoffice documentserver
 
 ## How it work
